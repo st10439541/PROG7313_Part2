@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_splash.xml
+    SPENDID — Home / Landing Page
+    ─────────────────────────────────────────────────────────
+    Structure:
+      ConstraintLayout  (full screen, forest-green background)
+        ├── TOP SECTION
+        │     ├── Decorative circle  (top-left, semi-transparent)
+        │     ├── Decorative circle  (top-right, semi-transparent)
+        │     ├── Brand mark box     "✦"
+        │     ├── App name           "SPENDID"
+        │     └── Tagline            "Spend beautifully"
+        │
+        ├── MIDDLE SECTION
+        │     ├── Illustration card  (white rounded card, centre)
+        │     │     ├── Decorative leaf/coin emoji
+        │     │     ├── Feature row 1  ✦ Track every expense
+        │     │     ├── Feature row 2  ✦ Set budget goals
+        │     │     └── Feature row 3  ✦ Know where it goes
+        │     └── Curved white wave  (bottom of green section)
+        │
+        └── BOTTOM SECTION  (cream background)
+              ├── "Get Started" button  (primary, forest green)
+              ├── Divider row           "Already have an account?"
+              └── "Log In" button       (text button)
+-->
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/forest_dark"
+    tools:context=".ui.auth.SplashActivity"> <!-- Login issue -->
+
+    <!-- ══════════════════════════════════════════
+         DECORATIVE BACKGROUND CIRCLES
+         ══════════════════════════════════════════ -->
+
+    <!-- Large circle — top left -->
+    <View
+        android:id="@+id/circleTopLeft"
+        android:layout_width="220dp"
+        android:layout_height="220dp"
+        android:alpha="0.07"
+        android:background="@drawable/bg_circle_overlay"
+        app:layout_constraintEnd_toStartOf="@id/circleTopRight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="-80dp"
+        android:layout_marginTop="-80dp"/>
+
+    <!-- Small circle — top right -->
+    <View
+        android:id="@+id/circleTopRight"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:alpha="0.06"
+        android:background="@drawable/bg_circle_overlay"
+        android:layout_marginTop="-30dp"
+        android:layout_marginEnd="-30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- Small circle — mid left -->
+    <View
+        android:id="@+id/circleMidLeft"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:alpha="0.05"
+        android:background="@drawable/bg_circle_overlay"
+        android:layout_marginStart="-20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/circleTopLeft"
+        android:layout_marginTop="20dp"/>
+
+
+    <!-- ══════════════════════════════════════════
+         TOP SECTION — BRAND
+         ══════════════════════════════════════════ -->
+
+    <!-- Brand mark box -->
+    <TextView
+        android:id="@+id/brandMark"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="72dp"
+        android:background="@drawable/bg_brand_mark"
+        android:gravity="center"
+        android:text="✦"
+        android:textColor="@color/white"
+        android:textSize="26sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- App name -->
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:fontFamily="@font/playfair_display_bold"
+        android:letterSpacing="0.2"
+        android:text="@string/app_name"
+        android:textColor="@color/white"
+        android:textSize="42sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/brandMark"/>
+
+    <!-- Tagline -->
+    <TextView
+        android:id="@+id/tvTagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:fontFamily="@font/lato_regular"
+        android:letterSpacing="0.15"
+        android:text="@string/tagline"
+        android:textAllCaps="true"
+        android:textColor="@color/sage"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvAppName"/>
+
+
+    <!-- ══════════════════════════════════════════
+         MIDDLE SECTION — FEATURE CARD
+         ══════════════════════════════════════════ -->
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/featureCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="28dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTagline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingStart="24dp"
+            android:paddingTop="28dp"
+            android:paddingEnd="24dp"
+            android:paddingBottom="28dp">
+
+            <!-- Illustration emoji -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="20dp"
+                android:text="💰"
+                android:textSize="52sp"/>
+
+            <!-- Feature 1 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_feature_dot"
+                    android:gravity="center"
+                    android:text="✦"
+                    android:textColor="@color/forest"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="Track every expense"
+                        android:textColor="@color/bark"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="Log date, time, category and photos"
+                        android:textColor="@color/brown_light"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/linen"/>
+
+            <!-- Feature 2 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_feature_dot"
+                    android:gravity="center"
+                    android:text="✦"
+                    android:textColor="@color/forest"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="Set budget goals"
+                        android:textColor="@color/bark"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="Define your min and max monthly spend"
+                        android:textColor="@color/brown_light"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Divider -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/linen"/>
+
+            <!-- Feature 3 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:background="@drawable/bg_feature_dot"
+                    android:gravity="center"
+                    android:text="✦"
+                    android:textColor="@color/forest"
+                    android:textSize="12sp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_bold"
+                        android:text="Know where it goes"
+                        android:textColor="@color/bark"
+                        android:textSize="15sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="Visual reports by category and period"
+                        android:textColor="@color/brown_light"
+                        android:textSize="12sp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <!-- ══════════════════════════════════════════
+         BOTTOM SECTION — ACTIONS
+         White cream panel that sits at the bottom
+         ══════════════════════════════════════════ -->
+
+    <LinearLayout
+        android:id="@+id/bottomPanel"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bg_bottom_panel"
+        android:orientation="vertical"
+        android:paddingStart="28dp"
+        android:paddingTop="32dp"
+        android:paddingEnd="28dp"
+        android:paddingBottom="40dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <!-- Get Started button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGetStarted"
+            style="@style/Widget.Spendid.Button.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:text="@string/btn_get_started"
+            app:backgroundTint="@color/forest"
+            app:cornerRadius="14dp"/>
+
+        <!-- Divider row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="4dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/linen"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:fontFamily="@font/lato_regular"
+                android:letterSpacing="0.08"
+                android:text="Already have an account?"
+                android:textAllCaps="false"
+                android:textColor="@color/brown_light"
+                android:textSize="12sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="@color/linen"/>
+
+        </LinearLayout>
+
+        <!-- Log In text button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnGoToLogin"
+            style="@style/Widget.Spendid.Button.Text"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/btn_log_in_existing"
+            android:textColor="@color/forest"
+            android:textSize="14sp"/>
+
+    </LinearLayout>
+    <!-- ══ END BOTTOM PANEL ══ -->
+
+    <!-- Ensure feature card doesn't overlap bottom panel -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineBottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.72"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    nav_graph.xml
+    SPENDID — Navigation Graph
+    ───────────────────────────────────────────────
+    Fragments registered:
+      - DashboardFragment     (start destination)
+      - ExpenseListFragment
+      - AddExpenseFragment
+      - CategoriesFragment
+      - ReportsFragment
+      - BudgetGoalsFragment
+      - BadgesFragment
+      - ProfileFragment
+-->
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/dashboardFragment">
+
+    <!-- Dashboard — Home -->
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.spendid.app.ui.DashboardFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_dashboard"/>
+
+    <!-- Expense List -->
+    <fragment
+        android:id="@+id/expenseListFragment"
+        android:name="com.spendid.app.ui.ExpenseListFragment"
+        android:label="Expenses"
+        tools:layout="@layout/fragment_expense_list"/>
+
+    <!-- Add Expense — launched from FAB -->
+    <fragment
+        android:id="@+id/addExpenseFragment"
+        android:name="com.spendid.app.ui.AddExpenseFragment"
+        android:label="Add Expense"
+        tools:layout="@layout/fragment_add_expense"/>
+
+    <!-- Categories -->
+    <fragment
+        android:id="@+id/categoriesFragment"
+        android:name="com.spendid.app.ui.CategoriesFragment"
+        android:label="Categories"
+        tools:layout="@layout/fragment_categories"/>
+
+    <!-- Reports -->
+    <fragment
+        android:id="@+id/reportsFragment"
+        android:name="com.spendid.app.ui.ReportsFragment"
+        android:label="Reports"
+        tools:layout="@layout/fragment_reports"/>
+
+    <!-- Budget Goals -->
+    <fragment
+        android:id="@+id/budgetGoalsFragment"
+        android:name="com.spendid.app.ui.BudgetGoalsFragment"
+        android:label="Budget Goals"
+        tools:layout="@layout/fragment_budget_goals"/>
+
+    <!-- Badges / Gamification -->
+    <fragment
+        android:id="@+id/badgesFragment"
+        android:name="com.spendid.app.ui.BadgesFragment"
+        android:label="Badges"
+        tools:layout="@layout/fragment_badges"/>
+
+    <!-- Profile -->
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.spendid.app.ui.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"/>
+
+</navigation>

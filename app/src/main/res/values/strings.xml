@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SPENDID</string>
+    <string name="tagline">Spend beautifully</string>
+
+    <!-- Login -->
+    <string name="welcome_back">Welcome back</string>
+    <string name="sign_in_subtitle">Sign in to your account</string>
+    <string name="label_username">Username</string>
+    <string name="label_password">Password</string>
+    <string name="hint_username">Enter your username</string>
+    <string name="hint_password">Enter your password</string>
+    <string name="btn_login">Log In</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="btn_register_link">Register</string>
+
+    <!-- Register -->
+    <string name="create_account">Create Account</string>
+    <string name="register_subtitle">Start your journey with Spendid</string>
+    <string name="label_confirm_password">Confirm Password</string>
+    <string name="hint_confirm_password">Repeat your password</string>
+    <string name="hint_new_password">Create a password</string>
+    <string name="hint_choose_username">Choose a username</string>
+    <string name="btn_create_account">Create Account</string>
+    <string name="already_account">Already have an account?</string>
+    <string name="btn_login_link">Log In</string>
+    <string name="btn_back">Back</string>
+
+    <!-- Validation -->
+    <string name="error_username_empty">Please enter your username</string>
+    <string name="error_password_empty">Please enter your password</string>
+    <string name="error_username_short">Username must be at least 3 characters</string>
+    <string name="error_password_short">Password must be at least 6 characters</string>
+    <string name="error_passwords_no_match">Passwords do not match</string>
+    <string name="error_username_taken">Username already taken</string>
+
+    <!-- Content descriptions -->
+    <string name="cd_app_logo">Spendid app logo</string>
+    <string name="cd_toggle_password">Toggle password visibility</string>
+    <string name="cd_back">Go back</string>
+
+    <!-- Dashboard -->
+    <string name="cd_notifications">Notifications</string>
+    <string name="cd_profile">Profile</string>
+    <string name="cd_add_expense">Add new expense</string>
+    <string name="cd_has_photo">This entry has a photo</string>
+    <string name="dashboard_greeting_morning">Good morning ✦</string>
+    <string name="total_spent">Total spent this month</string>
+    <string name="budget_on_track">● On Track</string>
+    <string name="budget_caution">● Caution</string>
+    <string name="budget_over">● Over Budget</string>
+    <string name="btn_set_goals">Set Goals</string>
+    <string name="btn_view_report">View Report</string>
+    <string name="btn_view_all">View all</string>
+    <string name="section_recent">Recent Expenses</string>
+    <string name="section_categories">Spend by Category</string>
+
+    <!-- Splash / Home Page -->
+    <string name="btn_get_started">Get Started</string>
+    <string name="btn_log_in_existing">Log In to Existing Account</string>
+    <string name="feature_1_title">Track every expense</string>
+    <string name="feature_1_sub">Log date, time, category and photos</string>
+    <string name="feature_2_title">Set budget goals</string>
+    <string name="feature_2_sub">Define your min and max monthly spend</string>
+    <string name="feature_3_title">Know where it goes</string>
+    <string name="feature_3_sub">Visual reports by category and period</string>
+
+    <!-- Bottom Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_expenses">Expenses</string>
+    <string name="nav_reports">Reports</string>
+    <string name="nav_profile">Profile</string>
+</resources>

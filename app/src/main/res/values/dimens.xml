@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Screen -->
+    <dimen name="screen_min_height">780dp</dimen>
+
+    <!-- Spacing -->
+    <dimen name="spacing_xs">4dp</dimen>
+    <dimen name="spacing_sm">8dp</dimen>
+    <dimen name="spacing_md">16dp</dimen>
+    <dimen name="spacing_lg">24dp</dimen>
+    <dimen name="spacing_xl">32dp</dimen>
+    <dimen name="spacing_xxl">48dp</dimen>
+
+    <!-- Card -->
+    <dimen name="card_corner_radius">20dp</dimen>
+    <dimen name="card_elevation">8dp</dimen>
+    <dimen name="card_padding">24dp</dimen>
+
+    <!-- Input -->
+    <dimen name="input_height">50dp</dimen>
+    <dimen name="input_corner_radius">12dp</dimen>
+    <dimen name="input_stroke_width">1.5dp</dimen>
+
+    <!-- Button -->
+    <dimen name="btn_height">52dp</dimen>
+    <dimen name="btn_corner_radius">14dp</dimen>
+
+    <!-- Header -->
+    <dimen name="auth_header_height">220dp</dimen>
+    <dimen name="auth_header_height_register">240dp</dimen>
+    <dimen name="header_overlap">24dp</dimen>
+
+    <!-- Brand -->
+    <dimen name="brand_mark_size">44dp</dimen>
+    <dimen name="brand_mark_corner">12dp</dimen>
+    <dimen name="brand_name_size">26sp</dimen>
+    <dimen name="tagline_size">11sp</dimen>
+
+    <!-- Typography -->
+    <dimen name="text_display">22sp</dimen>
+    <dimen name="text_body">15sp</dimen>
+    <dimen name="text_label">11sp</dimen>
+    <dimen name="text_caption">13sp</dimen>
+
+    <!-- Strength bars -->
+    <dimen name="strength_bar_height">4dp</dimen>
+    <dimen name="strength_bar_gap">3dp</dimen>
+</resources>

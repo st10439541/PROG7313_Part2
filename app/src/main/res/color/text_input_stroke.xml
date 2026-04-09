@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/color/text_input_stroke.xml -->
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:color="@color/forest"     android:state_focused="true"/>
+    <item android:color="@color/terracotta" android:state_activated="true"/>
+    <item android:color="@color/linen_dark"/>
+</selector>

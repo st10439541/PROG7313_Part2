@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary — Forest Green -->
+    <color name="forest">#2E7D32</color>
+    <color name="forest_dark">#1B5E20</color>
+    <color name="forest_light">#43A047</color>
+
+    <!-- Secondary — Warm Brown -->
+    <color name="brown">#5D4037</color>
+    <color name="brown_dark">#3E2723</color>
+    <color name="brown_light">#795548</color>
+
+    <!-- Accents -->
+    <color name="sage">#A5C4A1</color>
+    <color name="sage_light">#C8E6C9</color>
+    <color name="linen">#EDE0D4</color>
+    <color name="linen_dark">#D7C4B0</color>
+
+    <!-- Backgrounds -->
+    <color name="cream">#FAF7F2</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Status -->
+    <color name="honey">#F9A825</color>
+    <color name="terracotta">#BF360C</color>
+    <color name="leaf">#388E3C</color>
+
+    <!-- Text -->
+    <color name="bark">#3E2723</color>
+    <color name="bark_light">#6D4C41</color>
+    <color name="hint_text">#C4B49E</color>
+
+    <!-- Transparent overlays -->
+    <color name="forest_overlay">#1A2E7D32</color>
+    <color name="white_15">#26FFFFFF</color>
+    <color name="white_20">#33FFFFFF</color>
+</resources>

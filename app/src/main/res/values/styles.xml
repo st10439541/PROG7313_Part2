@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ============================================
+         BASE APP THEME
+         ============================================ -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/forest</item>
+        <item name="colorPrimaryDark">@color/forest_dark</item>
+        <item name="colorAccent">@color/sage</item>
+        <item name="android:windowBackground">@color/cream</item>
+        <item name="android:statusBarColor">@color/forest_dark</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+    </style>
+
+    <style name="AppTheme.Splash" parent="AppTheme">
+        <item name="android:windowBackground">@color/forest_dark</item>
+        <item name="android:statusBarColor">@color/forest_dark</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
+    <!-- ============================================
+         BUTTON STYLES
+         ============================================ -->
+
+    <!-- Primary Button (Green filled) -->
+    <style name="Widget.Spendid.Button.Primary" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_height">@dimen/btn_height</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="backgroundTint">@color/forest</item>
+        <item name="cornerRadius">@dimen/btn_corner_radius</item>
+        <item name="rippleColor">@color/forest_dark</item>
+    </style>
+
+    <!-- Outline Button -->
+    <style name="Widget.Spendid.Button.Outline" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:layout_height">@dimen/btn_height</item>
+        <item name="android:textColor">@color/bark</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="strokeColor">@color/linen</item>
+        <item name="strokeWidth">1.5dp</item>
+        <item name="cornerRadius">@dimen/btn_corner_radius</item>
+        <item name="backgroundTint">@color/cream</item>
+        <item name="rippleColor">@color/sage_light</item>
+    </style>
+
+    <!-- Text Button -->
+    <style name="Widget.Spendid.Button.Text" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textColor">@color/forest</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="rippleColor">@color/sage_light</item>
+    </style>
+
+    <!-- ============================================
+         TEXT INPUT LAYOUT STYLES
+         ============================================ -->
+
+    <style name="Widget.Spendid.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/linen_dark</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="boxStrokeWidthFocused">2dp</item>
+        <item name="boxCornerRadiusTopStart">@dimen/input_corner_radius</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/input_corner_radius</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/input_corner_radius</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/input_corner_radius</item>
+        <item name="boxBackgroundColor">@color/cream</item>
+        <item name="hintTextColor">@color/brown_light</item>
+        <item name="android:textColorHint">@color/hint_text</item>
+        <item name="startIconTint">@color/sage</item>
+        <item name="endIconTint">@color/sage</item>
+        <item name="errorTextColor">@color/terracotta</item>
+        <item name="errorIconTint">@color/terracotta</item>
+    </style>
+
+    <!-- ============================================
+         CHIP STYLES (For category filters)
+         ============================================ -->
+
+    <!-- Base Chip Style -->
+    <style name="Widget.Spendid.Chip" parent="Widget.MaterialComponents.Chip.Choice">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="chipCornerRadius">100dp</item>
+        <item name="chipMinHeight">32dp</item>
+        <item name="chipStartPadding">14dp</item>
+        <item name="chipEndPadding">14dp</item>
+        <item name="rippleColor">@color/sage_light</item>
+    </style>
+
+    <!-- Selected Chip (Forest green) -->
+    <style name="Widget.Spendid.Chip.Selected">
+        <item name="android:textColor">@color/white</item>
+        <item name="chipBackgroundColor">@color/forest</item>
+        <item name="chipStrokeColor">@color/forest</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+    </style>
+
+    <!-- Unselected Chip -->
+    <style name="Widget.Spendid.Chip.Unselected">
+        <item name="android:textColor">@color/brown_light</item>
+        <item name="chipBackgroundColor">@color/cream</item>
+        <item name="chipStrokeColor">@color/linen</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+    </style>
+
+    <!-- Food Category Chip -->
+    <style name="Widget.Spendid.Chip.Food">
+        <item name="android:textColor">@color/forest</item>
+        <item name="chipBackgroundColor">@color/sage_light</item>
+        <item name="chipStrokeColor">@color/sage_light</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+    </style>
+
+    <!-- Transport Category Chip -->
+    <style name="Widget.Spendid.Chip.Transport">
+        <item name="android:textColor">@color/terracotta</item>
+        <item name="chipBackgroundColor">@color/linen</item>
+        <item name="chipStrokeColor">@color/linen</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+    </style>
+
+    <!-- Health Category Chip -->
+    <style name="Widget.Spendid.Chip.Health">
+        <item name="android:textColor">@color/brown</item>
+        <item name="chipBackgroundColor">@color/cream</item>
+        <item name="chipStrokeColor">@color/linen_dark</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+    </style>
+
+    <!-- Outline Chip (New Category) -->
+    <style name="Widget.Spendid.Chip.Outline">
+        <item name="android:textColor">@color/brown_light</item>
+        <item name="chipBackgroundColor">@color/cream</item>
+        <item name="chipStrokeColor">@color/linen</item>
+        <item name="chipStrokeWidth">1.5dp</item>
+    </style>
+
+    <!-- ============================================
+         CARD STYLES
+         ============================================ -->
+
+    <style name="Widget.Spendid.Card" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <item name="cardElevation">@dimen/card_elevation</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <!-- ============================================
+         TYPOGRAPHY STYLES
+         ============================================ -->
+
+    <style name="TextAppearance.Spendid.Display">
+        <item name="android:textSize">@dimen/text_display</item>
+        <item name="android:fontFamily">@font/playfair_display_bold</item>
+        <item name="android:textColor">@color/bark</item>
+    </style>
+
+    <style name="TextAppearance.Spendid.Body">
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/bark</item>
+    </style>
+
+    <style name="TextAppearance.Spendid.Label">
+        <item name="android:textSize">@dimen/text_label</item>
+        <item name="android:fontFamily">@font/lato_bold</item>
+        <item name="android:textColor">@color/brown</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.1</item>
+    </style>
+
+    <style name="TextAppearance.Spendid.Caption">
+        <item name="android:textSize">@dimen/text_caption</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/brown_light</item>
+    </style>
+
+    <!-- ============================================
+         PROGRESS BAR STYLES
+         ============================================ -->
+
+    <style name="Widget.Spendid.ProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:max">100</item>
+        <item name="android:progressDrawable">@drawable/progress_bar_green</item>
+    </style>
+
+</resources>

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+    activity_login.xml
+    SPENDID — Login Screen
+    ─────────────────────────────────────────────────────────
+    Structure:
+      ScrollView
+        └── ConstraintLayout (full screen)
+              ├── Header band  (green gradient + wave)
+              │     ├── Brand mark box  "✦"
+              │     ├── App name        "SPENDID"
+              │     └── Tagline         "Spend beautifully"
+              └── Form card  (white, rounded, elevated)
+                    ├── Screen title    "Welcome back"
+                    ├── Screen subtitle
+                    ├── Username field  (TextInputLayout)
+                    ├── Password field  (TextInputLayout + toggle)
+                    ├── Primary button  "Log In"
+                    ├── Divider row
+                    └── Register link
+-->
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cream"
+    android:fillViewport="true"
+    tools:context=".ui.auth.LoginActivity"> <!--fix this for login  -->
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/screen_min_height">
+
+        <!-- ══════════════════════════════════════
+             GREEN HEADER BAND
+             ══════════════════════════════════════ -->
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/header"
+            android:layout_width="0dp"
+            android:layout_height="220dp"
+            android:background="@drawable/bg_header_wave"
+            android:paddingStart="28dp"
+            android:paddingTop="48dp"
+            android:paddingEnd="28dp"
+            android:paddingBottom="36dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Brand mark box -->
+            <TextView
+                android:id="@+id/brandMark"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:background="@drawable/bg_brand_mark"
+                android:gravity="center"
+                android:text="✦"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                app:layout_constraintBottom_toBottomOf="@id/brandName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/brandName" />
+
+            <!-- App name -->
+            <TextView
+                android:id="@+id/brandName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:fontFamily="@font/playfair_display_bold"
+                android:letterSpacing="0.15"
+                android:text="@string/app_name"
+                android:textColor="@color/white"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@id/brandMark"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- Tagline -->
+            <TextView
+                android:id="@+id/tagline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/lato_regular"
+                android:letterSpacing="0.12"
+                android:text="@string/tagline"
+                android:textAllCaps="true"
+                android:textColor="@color/white_15"
+                android:textSize="11sp"
+                app:layout_constraintStart_toStartOf="@id/brandName"
+                app:layout_constraintTop_toBottomOf="@id/brandName" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- ══ END HEADER ══ -->
+
+
+        <!-- ══════════════════════════════════════
+             FORM CARD
+             ══════════════════════════════════════ -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/formCard"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="-24dp"
+            android:layout_marginEnd="20dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/header">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <!-- Screen title -->
+                <TextView
+                    android:id="@+id/screenTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:text="@string/welcome_back"
+                    android:textColor="@color/bark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <!-- Subtitle -->
+                <TextView
+                    android:id="@+id/screenSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="24dp"
+                    android:fontFamily="@font/lato_regular"
+                    android:text="@string/sign_in_subtitle"
+                    android:textColor="@color/brown_light"
+                    android:textSize="13sp" />
+
+                <!-- ── Username field ── -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.1"
+                    android:text="@string/label_username"
+                    android:textAllCaps="true"
+                    android:textColor="@color/brown"
+                    android:textSize="11sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/usernameLayout"
+                    style="@style/Widget.Spendid.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="18dp"
+                    app:startIconDrawable="@drawable/ic_person"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/usernameInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:hint="@string/hint_username"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:textColor="@color/bark"
+                        android:textSize="15sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- ── Password field ── -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/lato_bold"
+                    android:letterSpacing="0.1"
+                    android:text="@string/label_password"
+                    android:textAllCaps="true"
+                    android:textColor="@color/brown"
+                    android:textSize="11sp" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordLayout"
+                    style="@style/Widget.Spendid.TextInputLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="28dp"
+                    app:endIconMode="password_toggle"
+                    app:startIconDrawable="@drawable/ic_lock"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:hint="@string/hint_password"
+                        android:inputType="textPassword"
+                        android:maxLines="1"
+                        android:textColor="@color/bark"
+                        android:textSize="15sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- ── Login button ── -->
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLogin"
+                    style="@style/Widget.Spendid.Button.Primary"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:text="@string/btn_login" />
+
+                <!-- ── Divider row ── -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/linen" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="12dp"
+                        android:layout_marginEnd="12dp"
+                        android:fontFamily="@font/lato_regular"
+                        android:letterSpacing="0.08"
+                        android:text="New to Spendid?"
+                        android:textAllCaps="true"
+                        android:textColor="@color/hint_text"
+                        android:textSize="10sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"
+                        android:background="@color/linen" />
+
+                </LinearLayout>
+
+                <!-- ── Register link ── -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="4dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato_regular"
+                        android:text="@string/no_account"
+                        android:textColor="@color/brown_light"
+                        android:textSize="13sp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnGoToRegister"
+                        style="@style/Widget.Spendid.Button.Text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="2dp"
+                        android:minHeight="0dp"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="0dp"
+                        android:text="@string/btn_register_link"
+                        android:textColor="@color/forest"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <!-- ══ END FORM CARD ══ -->
+
+        <!-- Bottom spacer -->
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="32dp"
+            app:layout_constraintTop_toBottomOf="@id/formCard"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

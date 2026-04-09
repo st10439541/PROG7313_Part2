@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_header_wave.xml
+     A concave scallop at the bottom of the green header band.
+     The path is drawn on a 1080 × 200 canvas (portrait phone width). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="1080dp"
+    android:height="200dp"
+    android:viewportWidth="1080"
+    android:viewportHeight="200">
+
+    <!-- Green fill that covers the whole header plus the wave tail -->
+    <path
+        android:fillColor="#1B5E20"
+        android:pathData="
+            M0,0
+            L1080,0
+            L1080,160
+            Q540,220 0,160
+            Z"/>
+</vector>

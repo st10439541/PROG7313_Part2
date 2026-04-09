@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Spendid" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Primary -->
+        <item name="colorPrimary">@color/forest</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/sage_light</item>
+        <item name="colorOnPrimaryContainer">@color/forest_dark</item>
+
+        <!-- Secondary -->
+        <item name="colorSecondary">@color/brown</item>
+        <item name="colorOnSecondary">@color/white</item>
+        <item name="colorSecondaryContainer">@color/linen</item>
+        <item name="colorOnSecondaryContainer">@color/brown_dark</item>
+
+        <!-- Tertiary -->
+        <item name="colorTertiary">@color/honey</item>
+        <item name="colorOnTertiary">@color/bark</item>
+
+        <!-- Background & Surface -->
+        <item name="android:colorBackground">@color/cream</item>
+        <item name="colorSurface">@color/white</item>
+        <item name="colorOnSurface">@color/bark</item>
+        <item name="colorSurfaceVariant">@color/linen</item>
+        <item name="colorOnSurfaceVariant">@color/brown_light</item>
+        <item name="colorOutline">@color/linen_dark</item>
+
+        <!-- Error -->
+        <item name="colorError">@color/terracotta</item>
+        <item name="colorOnError">@color/white</item>
+
+        <!-- Status bar -->
+        <item name="android:statusBarColor">@color/forest_dark</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Auth screens (Login / Register) -->
+    <style name="Theme.Spendid.Auth" parent="Theme.Spendid">
+        <item name="android:statusBarColor">@color/forest_dark</item>
+        <item name="android:navigationBarColor">@color/cream</item>
+    </style>
+
+    <!-- ── Text Appearances ── -->
+    <style name="TextAppearance.Spendid.DisplayLarge" parent="TextAppearance.Material3.DisplayLarge">
+        <item name="fontFamily">@font/playfair_display_bold</item>
+        <item name="android:textSize">32sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="TextAppearance.Spendid.HeadlineMedium" parent="TextAppearance.Material3.HeadlineMedium">
+        <item name="fontFamily">@font/playfair_display_bold</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/bark</item>
+    </style>
+
+    <style name="TextAppearance.Spendid.TitleSmall" parent="TextAppearance.Material3.TitleSmall">
+        <item name="fontFamily">@font/lato_regular</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/brown_light</item>
+        <item name="android:letterSpacing">0.02</item>
+    </style>
+
+    <style name="TextAppearance.Spendid.Label" parent="TextAppearance.Material3.LabelSmall">
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/brown</item>
+        <item name="android:letterSpacing">0.1</item>
+        <item name="android:textAllCaps">true</item>
+    </style>
+
+    <!-- ── Button Styles ── -->
+    <style name="Widget.Spendid.Button.Primary" parent="Widget.Material3.Button">
+        <item name="android:layout_height">52dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.15</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="backgroundTint">@color/forest</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">14dp</item>
+        <item name="elevation">4dp</item>
+    </style>
+
+    <style name="Widget.Spendid.Button.Text" parent="Widget.Material3.Button.TextButton">
+        <item name="android:textColor">@color/forest</item>
+        <item name="fontFamily">@font/lato_bold</item>
+        <item name="android:textSize">13sp</item>
+    </style>
+
+    <!-- ── TextInputLayout ── -->
+    <style name="Widget.Spendid.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/forest</item>
+        <item name="boxStrokeWidth">1.5dp</item>
+        <item name="boxCornerRadiusTopStart">12dp</item>
+        <item name="boxCornerRadiusTopEnd">12dp</item>
+        <item name="boxCornerRadiusBottomStart">12dp</item>
+        <item name="boxCornerRadiusBottomEnd">12dp</item>
+        <item name="boxBackgroundColor">@color/white</item>
+        <item name="hintTextColor">@color/forest</item>
+        <item name="android:textColorHint">@color/brown_light</item>
+        <item name="startIconTint">@color/forest</item>
+        <item name="endIconTint">@color/brown_light</item>
+    </style>
+
+    <!-- Bottom Nav Indicator -->
+    <style name="Widget.Spendid.BottomNav.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/sage_light</item>
+        <item name="shapeAppearance">@style/ShapeAppearance.Material3.Corner.Full</item>
+    </style>
+
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/bg_brand_mark.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="@color/white_20"/>
+    <stroke
+        android:width="1dp"
+        android:color="@color/white_15"/>
+    <corners android:radius="12dp"/>
+</shape>
