@@ -66,6 +66,12 @@
         <item name="rippleColor">@color/sage_light</item>
     </style>
 
+    <style name="TextAppearance.Spendid" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">@dimen/text_body</item>
+        <item name="android:fontFamily">@font/lato_regular</item>
+        <item name="android:textColor">@color/bark</item>
+    </style>
+
     <!-- ============================================
          TEXT INPUT LAYOUT STYLES
          ============================================ -->

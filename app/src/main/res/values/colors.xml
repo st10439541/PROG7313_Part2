@@ -5,6 +5,7 @@
     <color name="forest_dark">#1B5E20</color>
     <color name="forest_light">#43A047</color>
 
+
     <!-- Secondary — Warm Brown -->
     <color name="brown">#5D4037</color>
     <color name="brown_dark">#3E2723</color>
@@ -34,4 +35,8 @@
     <color name="forest_overlay">#1A2E7D32</color>
     <color name="white_15">#26FFFFFF</color>
     <color name="white_20">#33FFFFFF</color>
+
+    <!-- Missing colors fixing erros -->
+    <color name="terracotta_light">#E64A19</color>
+    <color name="red">#F44336</color>
 </resources>

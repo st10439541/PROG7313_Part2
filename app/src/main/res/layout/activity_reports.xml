@@ -97,7 +97,11 @@
                         android:id="@+id/chartIncomeExpense"
                         android:layout_width="match_parent"
                         android:layout_height="160dp"
+                        />
+                        <!--
+                        there should be a chart this was a placeholder
                         android:background="@drawable/bg_chart_placeholder" />
+                        -->
 
                     <!-- Legend -->
                     <LinearLayout

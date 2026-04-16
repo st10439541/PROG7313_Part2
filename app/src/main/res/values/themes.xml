@@ -62,48 +62,6 @@
         <item name="android:letterSpacing">0.02</item>
     </style>
 
-    <style name="TextAppearance.Spendid.Label" parent="TextAppearance.Material3.LabelSmall">
-        <item name="fontFamily">@font/lato_bold</item>
-        <item name="android:textSize">11sp</item>
-        <item name="android:textColor">@color/brown</item>
-        <item name="android:letterSpacing">0.1</item>
-        <item name="android:textAllCaps">true</item>
-    </style>
-
-    <!-- ── Button Styles ── -->
-    <style name="Widget.Spendid.Button.Primary" parent="Widget.Material3.Button">
-        <item name="android:layout_height">52dp</item>
-        <item name="android:textSize">13sp</item>
-        <item name="android:letterSpacing">0.15</item>
-        <item name="android:textAllCaps">true</item>
-        <item name="fontFamily">@font/lato_bold</item>
-        <item name="backgroundTint">@color/forest</item>
-        <item name="android:textColor">@color/white</item>
-        <item name="cornerRadius">14dp</item>
-        <item name="elevation">4dp</item>
-    </style>
-
-    <style name="Widget.Spendid.Button.Text" parent="Widget.Material3.Button.TextButton">
-        <item name="android:textColor">@color/forest</item>
-        <item name="fontFamily">@font/lato_bold</item>
-        <item name="android:textSize">13sp</item>
-    </style>
-
-    <!-- ── TextInputLayout ── -->
-    <style name="Widget.Spendid.TextInputLayout" parent="Widget.Material3.TextInputLayout.OutlinedBox">
-        <item name="boxStrokeColor">@color/forest</item>
-        <item name="boxStrokeWidth">1.5dp</item>
-        <item name="boxCornerRadiusTopStart">12dp</item>
-        <item name="boxCornerRadiusTopEnd">12dp</item>
-        <item name="boxCornerRadiusBottomStart">12dp</item>
-        <item name="boxCornerRadiusBottomEnd">12dp</item>
-        <item name="boxBackgroundColor">@color/white</item>
-        <item name="hintTextColor">@color/forest</item>
-        <item name="android:textColorHint">@color/brown_light</item>
-        <item name="startIconTint">@color/forest</item>
-        <item name="endIconTint">@color/brown_light</item>
-    </style>
-
     <!-- Bottom Nav Indicator -->
     <style name="Widget.Spendid.BottomNav.Indicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
         <item name="android:color">@color/sage_light</item>
