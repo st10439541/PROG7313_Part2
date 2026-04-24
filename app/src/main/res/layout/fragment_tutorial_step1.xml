@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/lato_regular"
-                android:text="Michael Jackson"
+                android:hint="Your name"
                 android:textColor="@color/bark"
                 android:textSize="15sp"
                 android:inputType="textPersonName" />
@@ -80,7 +80,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:fontFamily="@font/lato_regular"
-                android:text="25,000"
+                android:hint="e.g. 25,000"
                 android:textColor="@color/bark"
                 android:textSize="15sp"
                 android:inputType="number" />

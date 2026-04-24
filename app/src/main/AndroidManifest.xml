@@ -29,7 +29,12 @@
             android:name=".RegisterActivity"
             android:exported="false"/>
 
-        <!-- Main -->
+        <!-- Tutorial (NEW) -->
+        <activity
+            android:name=".TutorialActivity"
+            android:exported="false"/>
+
+        <!-- Main / Dashboard -->
         <activity
             android:name=".MainActivity"
             android:exported="false"/>

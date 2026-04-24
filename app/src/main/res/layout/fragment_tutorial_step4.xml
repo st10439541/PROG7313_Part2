@@ -24,8 +24,8 @@
             android:textColor="@color/bark_light"
             android:textSize="13sp" />
 
-        <!-- Preference Items -->
-        <androidx.cardview.widget.CardView
+        <!-- Preference Items – using MaterialCardView to allow stroke -->
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
@@ -79,7 +79,7 @@
 
                     </LinearLayout>
 
-                    <com.google.android.material.switch.SwitchMaterial
+                    <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchAlerts"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -131,7 +131,7 @@
 
                     </LinearLayout>
 
-                    <com.google.android.material.switch.SwitchMaterial
+                    <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchReminder"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -183,7 +183,7 @@
 
                     </LinearLayout>
 
-                    <com.google.android.material.switch.SwitchMaterial
+                    <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchBadges"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -235,7 +235,7 @@
 
                     </LinearLayout>
 
-                    <com.google.android.material.switch.SwitchMaterial
+                    <com.google.android.material.switchmaterial.SwitchMaterial
                         android:id="@+id/switchDarkMode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -244,9 +244,9 @@
                 </LinearLayout>
 
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-        <!-- Success Card -->
+        <!-- Success Card (plain CardView, no stroke necessary) -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -274,7 +274,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato_bold"
-                    android:text="You're all set, Michael!"
+                    android:text="You're all set!"
                     android:textColor="@color/forest"
                     android:textSize="14sp" />
 
@@ -291,5 +291,4 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-
 </ScrollView>

@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Step 2: Financial Goal -->
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/cream"
     android:fillViewport="true">
 
@@ -14,7 +13,6 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -24,22 +22,24 @@
             android:textColor="@color/bark_light"
             android:textSize="13sp" />
 
-        <!-- Goal Options -->
-        <RadioGroup
-            android:id="@+id/goalGroup"
+        <LinearLayout
+            android:id="@+id/goalContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <!-- Save more money -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardSaveMoney"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/sage_light"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/forest"
-                app:strokeWidth="2dp">
+                android:background="@drawable/bg_card_option_selected"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -78,29 +78,22 @@
                             android:text="Build a consistent savings habit"
                             android:textColor="@color/bark_light"
                             android:textSize="11sp" />
-
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="✓"
-                        android:textColor="@color/forest"
-                        android:textSize="18sp" />
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Track my spending -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardTrackSpending"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/linen"
-                app:strokeWidth="1.5dp">
+                android:background="@drawable/bg_card_option_unselected"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -139,22 +132,22 @@
                             android:text="Understand where money goes"
                             android:textColor="@color/bark_light"
                             android:textSize="11sp" />
-
                     </LinearLayout>
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Reach a financial goal -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardReachGoal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/linen"
-                app:strokeWidth="1.5dp">
+                android:background="@drawable/bg_card_option_unselected"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -193,21 +186,21 @@
                             android:text="Holiday, car, home deposit"
                             android:textColor="@color/bark_light"
                             android:textSize="11sp" />
-
                     </LinearLayout>
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
             <!-- Manage household budget -->
             <androidx.cardview.widget.CardView
+                android:id="@+id/cardHousehold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
+                app:cardBackgroundColor="@android:color/transparent"
                 app:cardCornerRadius="12dp"
                 app:cardElevation="0dp"
-                app:strokeColor="@color/linen"
-                app:strokeWidth="1.5dp">
+                android:background="@drawable/bg_card_option_unselected"
+                android:clickable="true"
+                android:focusable="true">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -246,14 +239,9 @@
                             android:text="Family or shared expenses"
                             android:textColor="@color/bark_light"
                             android:textSize="11sp" />
-
                     </LinearLayout>
-
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
-
-        </RadioGroup>
-
+        </LinearLayout>
     </LinearLayout>
-
 </ScrollView>
