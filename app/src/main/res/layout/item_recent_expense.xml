@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    item_recent_expense.xml
-    SPENDID — Recent Expense Item
--->
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:paddingVertical="10dp"
+    android:padding="12dp"
     android:gravity="center_vertical">
 
+    <!-- ICON -->
     <TextView
         android:id="@+id/expenseIcon"
         android:layout_width="40dp"
@@ -20,6 +16,7 @@
         android:text="🍔"
         android:textSize="18sp" />
 
+    <!-- TITLE + META -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -31,30 +28,29 @@
             android:id="@+id/expenseTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/lato_bold"
-            android:text="Lunch at restaurant"
-            android:textColor="@color/bark"
-            android:textSize="14sp" />
+            android:text="Lunch"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/expenseMeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
-            android:fontFamily="@font/lato_regular"
-            android:text="Food · Mar 10"
-            android:textColor="@color/brown_light"
-            android:textSize="11sp" />
+            android:text="Food • Mar 10"
+            android:textSize="11sp"
+            android:textColor="@android:color/darker_gray" />
 
     </LinearLayout>
 
+    <!-- AMOUNT -->
     <TextView
         android:id="@+id/expenseAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/lato_bold"
         android:text="R 120"
-        android:textColor="@color/bark"
-        android:textSize="14sp" />
+        android:textStyle="bold"
+        android:textSize="14sp"
+        android:textColor="@android:color/black" />
 
 </LinearLayout>

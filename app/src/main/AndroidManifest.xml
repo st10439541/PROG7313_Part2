@@ -9,35 +9,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Spendid">
 
-        <!-- Splash — app entry point -->
+        <!-- Splash Screen (Entry Point) -->
         <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- Login -->
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false"/>
+        <!-- Auth -->
+        <activity android:name=".LoginActivity" android:exported="false" />
+        <activity android:name=".RegisterActivity" android:exported="false" />
+        <activity android:name=".TutorialActivity" android:exported="false" />
 
-        <!-- Register -->
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false"/>
+        <!-- Main -->
+        <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".MainActivity" android:exported="false" />
 
-        <!-- Tutorial (NEW) -->
-        <activity
-            android:name=".TutorialActivity"
-            android:exported="false"/>
-
-        <!-- Main / Dashboard -->
-        <activity
-            android:name=".MainActivity"
-            android:exported="false"/>
+        <!-- Features -->
+        <activity android:name=".AddExpenseActivity" android:exported="false" />
+        <activity android:name=".ExpenseListActivity" android:exported="false" />
+        <activity android:name=".ReportsActivity" android:exported="false" />
+        <activity android:name=".ProfileActivity" android:exported="false" />
 
     </application>
 

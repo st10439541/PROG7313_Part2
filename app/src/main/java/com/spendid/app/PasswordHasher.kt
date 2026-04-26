@@ -9,7 +9,7 @@ object PasswordHasher {
 
     private const val ITERATIONS = 100_000
     private const val KEY_LENGTH = 256
-    private const val ALGORITHM = "PBKDF2WithHmacSHA256"
+    private const val ALGORITHM = "PBKDF2WithHmacSHA1"
 
     /** Generate a 16‑byte random salt (hex‑encoded) */
     fun generateSalt(): String {

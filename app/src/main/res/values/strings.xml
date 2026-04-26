@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">SPENDID</string>
     <string name="tagline">Spend beautifully</string>
 
@@ -65,9 +66,11 @@
     <string name="feature_3_title">Know where it goes</string>
     <string name="feature_3_sub">Visual reports by category and period</string>
 
-    <!-- Bottom Navigation -->
+    <!-- Bottom Navigation (FIXED + COMPLETE) -->
     <string name="nav_home">Home</string>
     <string name="nav_expenses">Expenses</string>
+    <string name="nav_add">Add</string>
     <string name="nav_reports">Reports</string>
     <string name="nav_profile">Profile</string>
+
 </resources>

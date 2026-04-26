@@ -24,11 +24,12 @@ class LoginActivity : AppCompatActivity() {
 
         usernameLayout = findViewById(R.id.usernameLayout)
         passwordLayout = findViewById(R.id.passwordLayout)
-        usernameInput  = findViewById(R.id.usernameInput)
-        passwordInput  = findViewById(R.id.passwordInput)
+        usernameInput = findViewById(R.id.usernameInput)
+        passwordInput = findViewById(R.id.passwordInput)
 
         findViewById<MaterialButton>(R.id.btnGoToRegister).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+            finish() // optional but prevents back loop
         }
 
         findViewById<MaterialButton>(R.id.btnLogin).setOnClickListener {
@@ -37,6 +38,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun attemptLogin() {
+
         usernameLayout.error = null
         passwordLayout.error = null
 
@@ -47,28 +49,35 @@ class LoginActivity : AppCompatActivity() {
             usernameLayout.error = "Please enter your username"
             return
         }
+
         if (password.isEmpty()) {
             passwordLayout.error = "Please enter your password"
             return
         }
 
         lifecycleScope.launch {
-            // Repository now handles salting + hashing, so pass the plain password
-            val user = repository.login(username, password)   // ← plain password
+
+            val user = repository.login(username, password)
 
             if (user != null) {
-                if (user.tutorialCompleted) {
-                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
-                    intent.putExtra("USERNAME", user.username)
-                    startActivity(intent)
+
+                println("LOGIN SUCCESS: ${user.username}")
+
+                val intent = if (user.tutorialCompleted) {
+                    Intent(this@LoginActivity, MainActivity::class.java)
                 } else {
-                    val intent = Intent(this@LoginActivity, TutorialActivity::class.java)
-                    intent.putExtra("USER_ID", user.id)
-                    startActivity(intent)
+                    Intent(this@LoginActivity, TutorialActivity::class.java)
                 }
-                finish()
+
+                intent.putExtra("USER_ID", user.id)
+
+                startActivity(intent)
+                finish() // ✅ IMPORTANT: close login properly
+
             } else {
-                runOnUiThread { passwordLayout.error = "Incorrect username or password" }
+                runOnUiThread {
+                    passwordLayout.error = "Incorrect username or password"
+                }
             }
         }
     }

@@ -1,42 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    bottom_nav_menu.xml
-    SPENDID — Bottom Navigation Menu
-    ─────────────────────────────────
-    5 items:
-      1. Home        (Dashboard)
-      2. Expenses    (Expense List)
-      3. [FAB gap]   (Add Expense — handled by FAB overlay)
-      4. Reports     (Reports & Graphs)
-      5. Profile     (Profile & Settings)
--->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/dashboardFragment"
-        android:icon="@drawable/ic_nav_home"
-        android:title="@string/nav_home"/>
+        android:id="@+id/navHome"
+        android:title="Home"
+        android:icon="@drawable/ic_home"
+        android:enabled="true" />
 
     <item
-        android:id="@+id/expenseListFragment"
-        android:icon="@drawable/ic_nav_expenses"
-        android:title="@string/nav_expenses"/>
-
-    <!-- Empty centre item — space for FAB -->
-    <item
-        android:id="@+id/placeholder"
-        android:enabled="false"
-        android:icon="@drawable/ic_nav_placeholder"
-        android:title=""/>
+        android:id="@+id/navExpenses"
+        android:title="Expenses"
+        android:icon="@drawable/ic_list"
+        android:enabled="true" />
 
     <item
-        android:id="@+id/reportsFragment"
-        android:icon="@drawable/ic_nav_reports"
-        android:title="@string/nav_reports"/>
+        android:id="@+id/navAdd"
+        android:title="Add"
+        android:icon="@drawable/ic_add"
+        android:enabled="true" />
 
     <item
-        android:id="@+id/profileFragment"
-        android:icon="@drawable/ic_nav_profile"
-        android:title="@string/nav_profile"/>
+        android:id="@+id/navReports"
+        android:title="Reports"
+        android:icon="@drawable/ic_chart"
+        android:enabled="true" />
+
+    <item
+        android:id="@+id/navProfile"
+        android:title="Profile"
+        android:icon="@drawable/ic_user"
+        android:enabled="true" />
 
 </menu>

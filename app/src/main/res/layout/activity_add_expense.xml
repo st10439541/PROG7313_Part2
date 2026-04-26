@@ -1,311 +1,153 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-    activity_add_expense.xml
-    SPENDID — Add Expense
--->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cream"
-    android:fillViewport="true">
+    android:background="@color/cream">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+    <!-- SCROLL CONTENT -->
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Green Header -->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header"
-            android:layout_width="0dp"
-            android:layout_height="140dp"
-            android:background="@drawable/bg_header_wave"
-            android:paddingStart="24dp"
-            android:paddingTop="48dp"
-            android:paddingEnd="24dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnBack"
-                style="@style/Widget.Material3.Button.TextButton.Icon"
-                android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:text="@string/btn_back"
-                android:textColor="@color/white_15"
-                app:icon="@drawable/ic_arrow_back"
-                app:iconTint="@color/white_15"
+            <!-- HEADER -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/header"
+                android:layout_width="0dp"
+                android:layout_height="140dp"
+                android:background="@drawable/bg_header_wave"
+                android:paddingStart="24dp"
+                android:paddingTop="48dp"
+                android:paddingEnd="24dp"
+                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/playfair_display_bold"
-                android:text="Add Expense"
-                android:textColor="@color/white"
-                android:textSize="26sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- Form Content -->
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="24dp"
-            android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/header">
-
-            <!-- Amount Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="16dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnBack"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="24dp"
-                    android:gravity="center">
+                    android:text="Back"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/amountDisplay"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/playfair_display_bold"
-                        android:text="R 0.00"
-                        android:textColor="@color/bark"
-                        android:textSize="42sp" />
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Expense"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    android:textColor="@android:color/white"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:fontFamily="@font/lato_regular"
-                        android:text="Tap to enter amount"
-                        android:textColor="@color/brown_light"
-                        android:textSize="12sp" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Description Field -->
-            <TextView
-                android:layout_width="wrap_content"
+            <!-- FORM -->
+            <LinearLayout
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="6dp"
-                android:fontFamily="@font/lato_bold"
-                android:text="DESCRIPTION"
-                android:textColor="@color/brown"
-                android:textSize="11sp" />
+                android:orientation="vertical"
+                android:padding="16dp"
+                app:layout_constraintTop_toBottomOf="@id/header"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.Spendid.TextInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:startIconDrawable="@drawable/ic_edit">
+                <TextView
+                    android:id="@+id/amountDisplay"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="R 0.00"
+                    android:textSize="32sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Description" />
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/descriptionInput"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:fontFamily="@font/lato_regular"
-                    android:hint="e.g. Lunch at Nando's"
-                    android:inputType="text"
-                    android:textColor="@color/bark"
-                    android:textSize="15sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!-- Category Selection -->
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:fontFamily="@font/lato_bold"
-                android:text="CATEGORY"
-                android:textColor="@color/brown"
-                android:textSize="11sp" />
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/categoryGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:chipSpacingHorizontal="8dp"
-                app:chipSpacingVertical="8dp"
-                app:singleSelection="true">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipFood"
-                    style="@style/Widget.Spendid.Chip.Food"
-                    android:text="🍔 Food" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipTransport"
-                    style="@style/Widget.Spendid.Chip.Transport"
-                    android:text="🚗 Transport" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipHealth"
-                    style="@style/Widget.Spendid.Chip.Health"
-                    android:text="💊 Health" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipEntertainment"
-                    style="@style/Widget.Spendid.Chip.Unselected"
-                    android:text="🎬 Entertainment" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipNew"
-                    style="@style/Widget.Spendid.Chip.Outline"
-                    android:text="+ New" />
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <!-- Date and Time Row -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:fontFamily="@font/lato_bold"
-                        android:text="DATE"
-                        android:textColor="@color/brown"
-                        android:textSize="11sp" />
-
-                    <TextView
-                        android:id="@+id/dateDisplay"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/bg_input"
-                        android:fontFamily="@font/lato_regular"
-                        android:gravity="center_vertical"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:text="Mar 13, 2026"
-                        android:textColor="@color/bark"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:fontFamily="@font/lato_bold"
-                        android:text="TIME"
-                        android:textColor="@color/brown"
-                        android:textSize="11sp" />
-
-                    <TextView
-                        android:id="@+id/timeDisplay"
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@drawable/bg_input"
-                        android:fontFamily="@font/lato_regular"
-                        android:gravity="center_vertical"
-                        android:paddingStart="16dp"
-                        android:paddingEnd="16dp"
-                        android:text="09:41 AM"
-                        android:textColor="@color/bark"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <!-- Receipt Photo -->
-            <LinearLayout
-                android:id="@+id/attachReceipt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:background="@drawable/bg_input_light"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="16dp">
+                    android:hint="e.g. Lunch" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="12dp"
-                    android:text="📷"
-                    android:textSize="22sp" />
+                    android:text="Category" />
 
-                <LinearLayout
-                    android:layout_width="0dp"
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/categoryGroup"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    app:singleSelection="true">
 
-                    <TextView
+                    <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_bold"
-                        android:text="Attach receipt photo"
-                        android:textColor="@color/bark"
-                        android:textSize="13sp" />
+                        android:text="Food" />
 
-                    <TextView
+                    <com.google.android.material.chip.Chip
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/lato_regular"
-                        android:text="Optional"
-                        android:textColor="@color/brown_light"
-                        android:textSize="11sp" />
+                        android:text="Transport" />
 
-                </LinearLayout>
+                    <com.google.android.material.chip.Chip
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Health" />
+
+                </com.google.android.material.chip.ChipGroup>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/dateDisplay"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="›"
-                    android:textColor="@color/hint_text"
-                    android:textSize="20sp" />
+                    android:text="Select Date" />
+
+                <TextView
+                    android:id="@+id/timeDisplay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Select Time" />
+
+                <ImageView
+                    android:id="@+id/receiptImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"
+                    android:scaleType="centerCrop"
+                    android:contentDescription="Receipt Image"
+                    android:background="@android:color/darker_gray" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAttachReceipt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Attach Photo (Optional)" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnSave"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="SAVE EXPENSE" />
 
             </LinearLayout>
 
-            <!-- Save Button -->
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSave"
-                style="@style/Widget.Spendid.Button.Primary"
-                android:layout_width="match_parent"
-                android:layout_height="52dp"
-                android:layout_marginBottom="32dp"
-                android:text="SAVE EXPENSE" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
+    </ScrollView>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
