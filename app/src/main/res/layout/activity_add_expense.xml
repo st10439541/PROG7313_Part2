@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    activity_add_expense.xml
+    SPENDID — Add Expense (no numpad)
+-->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -6,147 +10,269 @@
     android:layout_height="match_parent"
     android:background="@color/cream">
 
-    <!-- SCROLL CONTENT -->
+    <!-- Header -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/header"
+        android:layout_width="0dp"
+        android:layout_height="140dp"
+        android:background="@drawable/bg_header_wave"
+        android:paddingStart="24dp"
+        android:paddingTop="48dp"
+        android:paddingEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- FIXED: Use existing Button.Text style -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack"
+            style="@style/Widget.Spendid.Button.Text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="← Back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/playfair_display_bold"
+            android:text="Add Expense"
+            android:textColor="@color/white"
+            android:textSize="26sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- Scrollable Form -->
     <ScrollView
-        android:id="@+id/scrollView"
+        android:id="@+id/scrollForm"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent"
+        android:clipToPadding="false"
+        android:paddingBottom="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/header">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="8dp">
 
-            <!-- HEADER -->
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/header"
-                android:layout_width="0dp"
-                android:layout_height="140dp"
-                android:background="@drawable/bg_header_wave"
-                android:paddingStart="24dp"
-                android:paddingTop="48dp"
-                android:paddingEnd="24dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnBack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Back"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add Expense"
-                    android:textSize="24sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/white"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <!-- FORM -->
-            <LinearLayout
-                android:layout_width="0dp"
+            <!-- Amount -->
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp"
-                app:layout_constraintTop_toBottomOf="@id/header"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.08"
+                android:text="AMOUNT"
+                android:textColor="@color/hint_text"
+                android:textSize="11sp" />
 
-                <TextView
-                    android:id="@+id/amountDisplay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="R 0.00"
-                    android:textSize="32sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Description" />
+            <!-- FIXED: Use existing TextInputLayout style -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Spendid.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:hint="R 0.00">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/descriptionInput"
+                    android:id="@+id/etAmount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="e.g. Lunch" />
+                    android:fontFamily="@font/playfair_display_bold"
+                    android:inputType="numberDecimal"
+                    android:textSize="28sp"
+                    android:textColor="@color/forest" />
 
-                <TextView
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Description -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.08"
+                android:text="DESCRIPTION"
+                android:textColor="@color/hint_text"
+                android:textSize="11sp" />
+
+            <!-- FIXED: Use existing TextInputLayout style -->
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.Spendid.TextInputLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="e.g. Lunch at Steers"
+                    android:inputType="text"
+                    android:textSize="15sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <!-- Category -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.08"
+                android:text="CATEGORY"
+                android:textColor="@color/hint_text"
+                android:textSize="11sp" />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Spendid.Chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Category" />
+                    android:text="🍔 Food" />
 
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/categoryGroup"
-                    android:layout_width="match_parent"
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Spendid.Chip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:singleSelection="true">
+                    android:text="🚗 Transport" />
 
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Food" />
-
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Transport" />
-
-                    <com.google.android.material.chip.Chip
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Health" />
-
-                </com.google.android.material.chip.ChipGroup>
-
-                <TextView
-                    android:id="@+id/dateDisplay"
-                    android:layout_width="match_parent"
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Spendid.Chip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select Date" />
+                    android:text="💊 Health" />
 
-                <TextView
-                    android:id="@+id/timeDisplay"
-                    android:layout_width="match_parent"
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Spendid.Chip"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Select Time" />
+                    android:text="🛒 Shopping" />
 
-                <ImageView
-                    android:id="@+id/receiptImageView"
-                    android:layout_width="match_parent"
-                    android:layout_height="180dp"
-                    android:scaleType="centerCrop"
-                    android:contentDescription="Receipt Image"
-                    android:background="@android:color/darker_gray" />
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Spendid.Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="🎬 Entertainment" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Spendid.Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="📦 Other" />
+
+            </com.google.android.material.chip.ChipGroup>
+
+            <!-- Date & Time -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.08"
+                android:text="DATE &amp; TIME"
+                android:textColor="@color/hint_text"
+                android:textSize="11sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                android:weightSum="2">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnAttachReceipt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Attach Photo (Optional)" />
+                    android:id="@+id/btnDate"
+                    style="@style/Widget.Spendid.Button.Outline"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="1"
+                    android:text="Apr 27, 2025" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSave"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="SAVE EXPENSE" />
+                    android:id="@+id/btnTime"
+                    style="@style/Widget.Spendid.Button.Outline"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_weight="1"
+                    android:text="13:22" />
 
             </LinearLayout>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Receipt Photo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="6dp"
+                android:fontFamily="@font/lato_bold"
+                android:letterSpacing="0.08"
+                android:text="RECEIPT PHOTO (OPTIONAL)"
+                android:textColor="@color/hint_text"
+                android:textSize="11sp" />
+
+            <ImageView
+                android:id="@+id/ivReceiptPreview"
+                android:layout_width="match_parent"
+                android:layout_height="140dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="Receipt preview"
+                android:scaleType="centerCrop"
+                android:visibility="gone" />
+
+            <!-- FIXED: Removed drawableStart="@drawable/ic_camera" – using text only (you can add emoji later) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnAttachReceipt"
+                style="@style/Widget.Spendid.Button.Outline"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="24dp"
+                android:text="📷 Attach Photo" />
+
+            <!-- Save Button -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSave"
+                style="@style/Widget.Spendid.Button.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="SAVE EXPENSE" />
+
+        </LinearLayout>
 
     </ScrollView>
 

@@ -9,8 +9,8 @@ class DatabaseHelper(context: Context) :
 
     companion object {
 
-        const val DATABASE_NAME = "spendid_db.db"
-        const val DATABASE_VERSION = 3
+        const val DATABASE_NAME = "spendid.db"
+        const val DATABASE_VERSION = 4
 
         // ================= USERS =================
         const val TABLE_USERS = "users"
