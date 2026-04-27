@@ -27,9 +27,10 @@
     <color name="leaf">#388E3C</color>
 
     <!-- Text -->
-    <color name="bark">#3E2723</color>
+    <color name="bark">#000000</color>
     <color name="bark_light">#6D4C41</color>
     <color name="hint_text">#C4B49E</color>
+    <color name="Black">#000000FF</color>
 
     <!-- Transparent overlays -->
     <color name="forest_overlay">#1A2E7D32</color>

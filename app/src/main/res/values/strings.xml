@@ -72,5 +72,21 @@
     <string name="nav_add">Add</string>
     <string name="nav_reports">Reports</string>
     <string name="nav_profile">Profile</string>
+    <string name="amount">AMOUNT</string>
+    <string name="r_0_00">R 0.00</string>
+    <string name="description">DESCRIPTION</string>
+    <string name="e_g_lunch_at_steers">e.g. Lunch at Steers</string>
+    <string name="date">DATE</string>
+    <string name="select_date">Select Date</string>
+
+    <!-- Expense category drop down -->
+    <string-array name="category_items">
+        <item>Food</item>
+        <item>Transport</item>
+        <item>Health</item>
+        <item>Shopping</item>
+        <item>Entertainment</item>
+        <item>Other</item>
+    </string-array>
 
 </resources>

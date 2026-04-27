@@ -24,16 +24,14 @@
         <activity android:name=".RegisterActivity" android:exported="false" />
         <activity android:name=".TutorialActivity" android:exported="false" />
 
-        <!-- Main Dashboards (add these) -->
-        <activity android:name=".DashboardActivity" android:exported="false" />
-        <activity android:name=".ExpenseDashboardActivity" android:exported="false" />
+        <activity android:name=".AddExpenseActivity"/>
+        <activity android:name=".ExpenseListActivity"/>
 
         <!-- Your existing container activities -->
         <activity android:name=".MainActivity" android:exported="false" />
 
 
         <!-- Features -->
-        <activity android:name=".AddExpenseActivity" android:exported="false" />
         <activity android:name=".ProfileActivity" android:exported="false" />
 
     </application>

@@ -9,11 +9,10 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
         val db = dbHelper.writableDatabase
 
         return try {
-
             db.beginTransaction()
 
             val existsCursor = db.rawQuery(
-                "SELECT id FROM users WHERE username = ?",
+                "SELECT id FROM ${DatabaseHelper.TABLE_USERS} WHERE ${DatabaseHelper.COL_USERNAME} = ?",
                 arrayOf(username)
             )
 
@@ -26,8 +25,7 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
                 return -1
             }
 
-            val db = dbHelper.writableDatabase
-
+            // FIX: removed duplicate writableDatabase call
             val salt = PasswordHasher.generateSalt()
             val hash = PasswordHasher.hash(password, salt)
 
@@ -35,14 +33,19 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
             println("PASSWORD LENGTH = ${password.length}")
             println("SALT = $salt")
             println("HASH = $hash")
+
             val values = ContentValues().apply {
-                put("username", username)
-                put("passwordHash", hash)
-                put("salt", salt)
-                put("tutorialCompleted", 0)
+                put(DatabaseHelper.COL_USERNAME, username)
+                put(DatabaseHelper.COL_PASSWORD_HASH, hash)
+                put(DatabaseHelper.COL_SALT, salt)
+                put(DatabaseHelper.COL_TUTORIAL_COMPLETED, 0)
             }
 
-            val result = db.insert("users", null, values)
+            val result = db.insert(
+                DatabaseHelper.TABLE_USERS,
+                null,
+                values
+            )
 
             db.setTransactionSuccessful()
 
@@ -63,7 +66,11 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
         val db = dbHelper.readableDatabase
 
         val cursor = db.rawQuery(
-            "SELECT COUNT(*) FROM ${DatabaseHelper.TABLE_USERS} WHERE ${DatabaseHelper.COL_USERNAME} = ?",
+            """
+            SELECT COUNT(*) 
+            FROM ${DatabaseHelper.TABLE_USERS} 
+            WHERE ${DatabaseHelper.COL_USERNAME} = ?
+            """.trimIndent(),
             arrayOf(username)
         )
 
@@ -77,7 +84,11 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
         val db = dbHelper.readableDatabase
 
         val cursor = db.rawQuery(
-            "SELECT * FROM ${DatabaseHelper.TABLE_USERS} WHERE ${DatabaseHelper.COL_USERNAME} = ?",
+            """
+            SELECT * 
+            FROM ${DatabaseHelper.TABLE_USERS}
+            WHERE ${DatabaseHelper.COL_USERNAME} = ?
+            """.trimIndent(),
             arrayOf(username)
         )
 
@@ -85,19 +96,29 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
 
             if (!it.moveToFirst()) return null
 
-            val storedHash = it.getString(it.getColumnIndexOrThrow(DatabaseHelper.COL_PASSWORD_HASH))
-            val salt = it.getString(it.getColumnIndexOrThrow(DatabaseHelper.COL_SALT))
+            val storedHash = it.getString(
+                it.getColumnIndexOrThrow(DatabaseHelper.COL_PASSWORD_HASH)
+            )
+
+            val salt = it.getString(
+                it.getColumnIndexOrThrow(DatabaseHelper.COL_SALT)
+            )
 
             val valid = PasswordHasher.verify(password, salt, storedHash)
 
             if (!valid) return null
 
             UserEntity(
-                id = it.getInt(it.getColumnIndexOrThrow(DatabaseHelper.COL_ID)),
+                // FIX: changed COL_ID → COL_USER_ID
+                id = it.getInt(
+                    it.getColumnIndexOrThrow(DatabaseHelper.COL_USER_ID)
+                ),
                 username = username,
                 passwordHash = storedHash,
                 salt = salt,
-                tutorialCompleted = it.getInt(it.getColumnIndexOrThrow(DatabaseHelper.COL_TUTORIAL_COMPLETED)) == 1
+                tutorialCompleted = it.getInt(
+                    it.getColumnIndexOrThrow(DatabaseHelper.COL_TUTORIAL_COMPLETED)
+                ) == 1
             )
         }
     }
@@ -107,7 +128,11 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
         val db = dbHelper.readableDatabase
 
         val cursor = db.rawQuery(
-            "SELECT * FROM ${DatabaseHelper.TABLE_USERS} WHERE ${DatabaseHelper.COL_ID} = ?",
+            """
+            SELECT * 
+            FROM ${DatabaseHelper.TABLE_USERS}
+            WHERE ${DatabaseHelper.COL_USER_ID} = ?
+            """.trimIndent(),
             arrayOf(id.toString())
         )
 
@@ -116,11 +141,22 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
             if (!it.moveToFirst()) return null
 
             UserEntity(
-                id = it.getInt(it.getColumnIndexOrThrow(DatabaseHelper.COL_ID)),
-                username = it.getString(it.getColumnIndexOrThrow(DatabaseHelper.COL_USERNAME)),
-                passwordHash = it.getString(it.getColumnIndexOrThrow(DatabaseHelper.COL_PASSWORD_HASH)),
-                salt = it.getString(it.getColumnIndexOrThrow(DatabaseHelper.COL_SALT)),
-                tutorialCompleted = it.getInt(it.getColumnIndexOrThrow(DatabaseHelper.COL_TUTORIAL_COMPLETED)) == 1
+                // FIX: changed COL_ID → COL_USER_ID
+                id = it.getInt(
+                    it.getColumnIndexOrThrow(DatabaseHelper.COL_USER_ID)
+                ),
+                username = it.getString(
+                    it.getColumnIndexOrThrow(DatabaseHelper.COL_USERNAME)
+                ),
+                passwordHash = it.getString(
+                    it.getColumnIndexOrThrow(DatabaseHelper.COL_PASSWORD_HASH)
+                ),
+                salt = it.getString(
+                    it.getColumnIndexOrThrow(DatabaseHelper.COL_SALT)
+                ),
+                tutorialCompleted = it.getInt(
+                    it.getColumnIndexOrThrow(DatabaseHelper.COL_TUTORIAL_COMPLETED)
+                ) == 1
             )
         }
     }
@@ -130,13 +166,18 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
         val db = dbHelper.writableDatabase
 
         val values = ContentValues().apply {
-            put(DatabaseHelper.COL_TUTORIAL_COMPLETED, if (user.tutorialCompleted) 1 else 0)
+            put(
+                DatabaseHelper.COL_TUTORIAL_COMPLETED,
+                if (user.tutorialCompleted) 1 else 0
+            )
         }
 
         db.update(
             DatabaseHelper.TABLE_USERS,
             values,
-            "${DatabaseHelper.COL_ID} = ?",
+
+            // FIX: changed COL_ID → COL_USER_ID
+            "${DatabaseHelper.COL_USER_ID} = ?",
             arrayOf(user.id.toString())
         )
     }
