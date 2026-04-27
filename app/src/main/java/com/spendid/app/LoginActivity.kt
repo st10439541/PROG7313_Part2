@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
         findViewById<MaterialButton>(R.id.btnGoToRegister).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
-            finish() // optional but prevents back loop
+            finish()
         }
 
         findViewById<MaterialButton>(R.id.btnLogin).setOnClickListener {
@@ -69,10 +69,11 @@ class LoginActivity : AppCompatActivity() {
                     Intent(this@LoginActivity, TutorialActivity::class.java)
                 }
 
+                // Pass USER_ID in both cases
                 intent.putExtra("USER_ID", user.id)
 
                 startActivity(intent)
-                finish() // ✅ IMPORTANT: close login properly
+                finish()
 
             } else {
                 runOnUiThread {

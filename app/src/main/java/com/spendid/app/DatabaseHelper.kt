@@ -10,7 +10,7 @@ class DatabaseHelper(context: Context) :
     companion object {
 
         const val DATABASE_NAME = "spendid.db"
-        const val DATABASE_VERSION = 4
+        const val DATABASE_VERSION = 5  // Updated to version 5
 
         // ================= USERS =================
         const val TABLE_USERS = "users"
@@ -19,6 +19,14 @@ class DatabaseHelper(context: Context) :
         const val COL_PASSWORD_HASH = "passwordHash"
         const val COL_SALT = "salt"
         const val COL_TUTORIAL_COMPLETED = "tutorialCompleted"
+
+        // ================= TUTORIAL OPTIONS =================
+        const val COL_FINANCIAL_GOAL = "financialGoal"
+        const val COL_SPENDING_HABIT = "spendingHabit"
+        const val COL_BUDGET_ALERTS = "budgetAlerts"
+        const val COL_DAILY_REMINDER = "dailyReminder"
+        const val COL_BADGE_NOTIFICATIONS = "badgeNotifications"
+        const val COL_DARK_MODE = "darkMode"
 
         // ================= EXPENSES =================
         const val TABLE_EXPENSES = "expenses"
@@ -41,7 +49,13 @@ class DatabaseHelper(context: Context) :
                 $COL_USERNAME TEXT NOT NULL UNIQUE,
                 $COL_PASSWORD_HASH TEXT NOT NULL,
                 $COL_SALT TEXT NOT NULL DEFAULT '',
-                $COL_TUTORIAL_COMPLETED INTEGER NOT NULL DEFAULT 0
+                $COL_TUTORIAL_COMPLETED INTEGER NOT NULL DEFAULT 0,
+                $COL_FINANCIAL_GOAL TEXT DEFAULT '',
+                $COL_SPENDING_HABIT TEXT DEFAULT '',
+                $COL_BUDGET_ALERTS INTEGER DEFAULT 1,
+                $COL_DAILY_REMINDER INTEGER DEFAULT 1,
+                $COL_BADGE_NOTIFICATIONS INTEGER DEFAULT 0,
+                $COL_DARK_MODE INTEGER DEFAULT 0
             )
             """.trimIndent()
         )
@@ -64,10 +78,19 @@ class DatabaseHelper(context: Context) :
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
 
-        // SAFE RESET FOR DEVELOPMENT
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_USERS")
-        db.execSQL("DROP TABLE IF EXISTS $TABLE_EXPENSES")
-
-        onCreate(db)
+        // Handle incremental upgrades instead of full reset
+        if (oldVersion < 5) {
+            try {
+                // Add new columns to users table if they don't exist
+                db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_FINANCIAL_GOAL TEXT DEFAULT ''")
+                db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_SPENDING_HABIT TEXT DEFAULT ''")
+                db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_BUDGET_ALERTS INTEGER DEFAULT 1")
+                db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_DAILY_REMINDER INTEGER DEFAULT 1")
+                db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_BADGE_NOTIFICATIONS INTEGER DEFAULT 0")
+                db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_DARK_MODE INTEGER DEFAULT 0")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 }
