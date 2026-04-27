@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    activity_reports.xml
-    SPENDID — Reports & Analytics
--->
+
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cream">
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        style="@style/Widget.Spendid.Button.Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="← Back"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
@@ -47,6 +54,7 @@
 
             <!-- Period Tabs -->
             <LinearLayout
+                android:id="@+id/periodContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -54,7 +62,8 @@
 
                 <TextView
                     style="@style/Widget.Spendid.Chip.Selected"
-                    android:text="Monthly" />
+                    android:text="Monthly"
+                    android:textColor="#795548" />
 
                 <TextView
                     style="@style/Widget.Spendid.Chip.Unselected"
