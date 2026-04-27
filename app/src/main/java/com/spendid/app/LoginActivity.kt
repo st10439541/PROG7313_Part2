@@ -69,8 +69,8 @@ class LoginActivity : AppCompatActivity() {
                     Intent(this@LoginActivity, TutorialActivity::class.java)
                 }
 
-                // Pass USER_ID in both cases
                 intent.putExtra("USER_ID", user.id)
+                intent.putExtra("USERNAME", user.username)
 
                 startActivity(intent)
                 finish()
