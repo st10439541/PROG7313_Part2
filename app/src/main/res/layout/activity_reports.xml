@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -14,13 +13,14 @@
         android:layout_height="wrap_content"
         android:text="← Back"
         android:textColor="@color/white"
+        android:visibility="gone"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -101,18 +101,11 @@
                         android:textColor="@color/bark"
                         android:textSize="16sp" />
 
-                    <!-- Chart Placeholder -->
                     <View
                         android:id="@+id/chartIncomeExpense"
                         android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        />
-                    <!--
-                    there should be a chart this was a placeholder
-                    android:background="@drawable/bg_chart_placeholder" />
-                    -->
+                        android:layout_height="160dp" />
 
-                    <!-- Legend -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -207,15 +200,4 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <!-- Bottom Navigation -->
-    <include
-        android:id="@+id/bottomNav"
-        layout="@layout/layout_bottom_nav"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

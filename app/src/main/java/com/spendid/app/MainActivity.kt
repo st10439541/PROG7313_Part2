@@ -57,7 +57,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         navReports.setOnClickListener {
-            startActivity(Intent(this, ViewReports::class.java))
+            loadFragment(ReportsFragment())
+            highlightNavItem(navReports)
         }
 
         navProfile.setOnClickListener {
@@ -89,5 +90,10 @@ class MainActivity : AppCompatActivity() {
             "profile" -> highlightNavItem(navProfile)
             else -> highlightNavItem(navHome)
         }
+    }
+
+    fun navigateToReports() {
+        loadFragment(ReportsFragment())
+        highlightNavItem(navReports)
     }
 }
