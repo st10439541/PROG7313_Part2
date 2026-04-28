@@ -35,6 +35,7 @@
         <!-- Features -->
         <activity android:name=".AddExpenseActivity" android:exported="false" />
         <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".SetBudgetActivity" android:exported="false"/>
 
     </application>
 

@@ -10,7 +10,7 @@ class DatabaseHelper(context: Context) :
     companion object {
 
         const val DATABASE_NAME = "spendid.db"
-        const val DATABASE_VERSION = 5  // Updated to version 5
+        const val DATABASE_VERSION = 6  // Updated to version 6
 
         // ================= USERS =================
         const val TABLE_USERS = "users"
@@ -38,10 +38,20 @@ class DatabaseHelper(context: Context) :
         const val COL_START_TIME = "startTime"
         const val COL_END_TIME = "endTime"
         const val COL_IMAGE_URI = "imageUri"
+
+        // ================= BUDGET =================
+        const val TABLE_BUDGET = "budget"
+        const val COL_BUDGET_ID = "id"
+        const val COL_BUDGET_AMOUNT = "amount"
+        const val COL_BUDGET_MONTH = "month"
+        const val COL_BUDGET_YEAR = "year"
+        const val COL_BUDGET_MIN_GOAL = "min_goal"
+        const val COL_BUDGET_MAX_GOAL = "max_goal"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
 
+        // Create Users Table
         db.execSQL(
             """
             CREATE TABLE $TABLE_USERS (
@@ -60,6 +70,7 @@ class DatabaseHelper(context: Context) :
             """.trimIndent()
         )
 
+        // Create Expenses Table
         db.execSQL(
             """
             CREATE TABLE $TABLE_EXPENSES (
@@ -71,6 +82,21 @@ class DatabaseHelper(context: Context) :
                 $COL_START_TIME TEXT NOT NULL,
                 $COL_END_TIME TEXT NOT NULL,
                 $COL_IMAGE_URI TEXT
+            )
+            """.trimIndent()
+        )
+
+        // Create Budget Table
+        db.execSQL(
+            """
+            CREATE TABLE $TABLE_BUDGET (
+                $COL_BUDGET_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COL_BUDGET_AMOUNT REAL NOT NULL,
+                $COL_BUDGET_MONTH INTEGER NOT NULL,
+                $COL_BUDGET_YEAR INTEGER NOT NULL,
+                $COL_BUDGET_MIN_GOAL REAL,
+                $COL_BUDGET_MAX_GOAL REAL,
+                UNIQUE($COL_BUDGET_MONTH, $COL_BUDGET_YEAR)
             )
             """.trimIndent()
         )
@@ -88,6 +114,27 @@ class DatabaseHelper(context: Context) :
                 db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_DAILY_REMINDER INTEGER DEFAULT 1")
                 db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_BADGE_NOTIFICATIONS INTEGER DEFAULT 0")
                 db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_DARK_MODE INTEGER DEFAULT 0")
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        // Add budget table for version 6
+        if (oldVersion < 6) {
+            try {
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS $TABLE_BUDGET (
+                        $COL_BUDGET_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        $COL_BUDGET_AMOUNT REAL NOT NULL,
+                        $COL_BUDGET_MONTH INTEGER NOT NULL,
+                        $COL_BUDGET_YEAR INTEGER NOT NULL,
+                        $COL_BUDGET_MIN_GOAL REAL,
+                        $COL_BUDGET_MAX_GOAL REAL,
+                        UNIQUE($COL_BUDGET_MONTH, $COL_BUDGET_YEAR)
+                    )
+                    """.trimIndent()
+                )
             } catch (e: Exception) {
                 e.printStackTrace()
             }

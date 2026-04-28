@@ -60,18 +60,59 @@
                 android:orientation="horizontal"
                 android:padding="16dp">
 
-                <TextView
-                    style="@style/Widget.Spendid.Chip.Selected"
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMonthly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/forest"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
                     android:text="Monthly"
-                    android:textColor="#795548" />
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
 
-                <TextView
-                    style="@style/Widget.Spendid.Chip.Unselected"
-                    android:text="Weekly" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnWeekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/white"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Weekly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/bark"
+                    android:textSize="13sp"
+                    app:strokeColor="@color/linen"
+                    app:strokeWidth="1.5dp" />
 
-                <TextView
-                    style="@style/Widget.Spendid.Chip.Unselected"
-                    android:text="Yearly" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnYearly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:backgroundTint="@color/white"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Yearly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/bark"
+                    android:textSize="13sp"
+                    app:strokeColor="@color/linen"
+                    app:strokeWidth="1.5dp" />
 
             </LinearLayout>
 
@@ -101,16 +142,28 @@
                         android:textColor="@color/bark"
                         android:textSize="16sp" />
 
-                    <View
+                    <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/chartIncomeExpense"
                         android:layout_width="match_parent"
-                        android:layout_height="160dp" />
+                        android:layout_height="200dp" />
+
+                    <TextView
+                        android:id="@+id/tvIncomeExpenseSummary"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/lato_bold"
+                        android:gravity="center"
+                        android:text="Surplus: R 0.00"
+                        android:textColor="@color/forest"
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -120,8 +173,8 @@
                             android:orientation="horizontal">
 
                             <View
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
                                 android:layout_marginEnd="6dp"
                                 android:background="@drawable/bg_dot_green" />
 
@@ -129,9 +182,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/lato_regular"
-                                android:text="Income"
+                                android:text="Income (Budget)"
                                 android:textColor="@color/brown_light"
-                                android:textSize="11sp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -142,8 +195,8 @@
                             android:orientation="horizontal">
 
                             <View
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
                                 android:layout_marginEnd="6dp"
                                 android:background="@drawable/bg_dot_orange" />
 
@@ -153,7 +206,7 @@
                                 android:fontFamily="@font/lato_regular"
                                 android:text="Expenses"
                                 android:textColor="@color/brown_light"
-                                android:textSize="11sp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 

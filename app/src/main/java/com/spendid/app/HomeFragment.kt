@@ -1,11 +1,13 @@
 package com.spendid.app
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.google.android.material.button.MaterialButton
@@ -18,6 +20,7 @@ class HomeFragment private constructor() : Fragment() {
     private var username: String = ""
     private lateinit var recentExpensesContainer: LinearLayout
     private lateinit var expenseRepository: ExpenseRepository
+    private lateinit var budgetRepository: BudgetRepository
 
     companion object {
         fun newInstance(username: String): HomeFragment {
@@ -33,6 +36,7 @@ class HomeFragment private constructor() : Fragment() {
         super.onCreate(savedInstanceState)
         username = arguments?.getString("USERNAME") ?: "User"
         expenseRepository = ExpenseRepository(DatabaseHelper(requireContext()))
+        budgetRepository = BudgetRepository(DatabaseHelper(requireContext()))
     }
 
     override fun onCreateView(
@@ -63,6 +67,11 @@ class HomeFragment private constructor() : Fragment() {
         }
         greetingText?.text = greeting
 
+        // Set current month/year
+        val currentDateText = view.findViewById<TextView>(R.id.currentDate)
+        val dateFormat = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+        currentDateText?.text = "📅 ${dateFormat.format(Date())}"
+
         // Handle View Report button click
         val btnViewReport = view.findViewById<MaterialButton>(R.id.btnViewReport)
         btnViewReport?.setOnClickListener {
@@ -72,23 +81,42 @@ class HomeFragment private constructor() : Fragment() {
         // Handle Set Goals button click
         val btnSetGoals = view.findViewById<MaterialButton>(R.id.btnSetGoals)
         btnSetGoals?.setOnClickListener {
-            // Navigate to budget goals
-            (activity as? MainActivity)?.let {
-                // You can add navigation to BudgetGoalsActivity here
-            }
+            val intent = Intent(requireContext(), SetBudgetActivity::class.java)
+            startActivity(intent)
         }
 
         // Handle View All click
         val btnViewAll = view.findViewById<TextView>(R.id.btnViewAll)
         btnViewAll?.setOnClickListener {
             // Navigate to full expense list
-            // This would need an ExpenseListActivity or similar
+            (activity as? MainActivity)?.let {
+                // You can add navigation to ExpenseListActivity here
+            }
+        }
+
+        // Handle notification bell click
+        val btnNotifications = view.findViewById<TextView>(R.id.btnNotifications)
+        btnNotifications?.setOnClickListener {
+            // Show notifications - you can implement this
+        }
+
+        // Handle badges click
+        val btnBadges = view.findViewById<TextView>(R.id.btnBadges)
+        btnBadges?.setOnClickListener {
+            // Navigate to badges screen - you can implement this
         }
 
         // Load recent expenses
         loadRecentExpenses()
 
         // Load budget data
+        loadBudgetData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Refresh data when returning to the fragment
+        loadRecentExpenses()
         loadBudgetData()
     }
 
@@ -174,7 +202,7 @@ class HomeFragment private constructor() : Fragment() {
         val emptyView = TextView(requireContext()).apply {
             text = "No expenses yet.\nTap + to add your first expense!"
             textSize = 14f
-            setTextColor(resources.getColor(R.color.brown_light, null))
+            setTextColor(ContextCompat.getColor(requireContext(), R.color.brown_light))
             gravity = android.view.Gravity.CENTER
             setPadding(32, 48, 32, 48)
         }
@@ -185,6 +213,12 @@ class HomeFragment private constructor() : Fragment() {
     private fun loadBudgetData() {
         lifecycleScope.launch {
             val expenses = expenseRepository.getAllExpenses()
+
+            // Get current budget from database
+            val currentBudget = budgetRepository.getCurrentBudget()
+            val budgetAmount = currentBudget?.amount ?: 6000.0 // Default to 6000 if no budget set
+            val minGoal = currentBudget?.minGoal
+            val maxGoal = currentBudget?.maxGoal
 
             // Calculate total spent this month
             val calendar = Calendar.getInstance()
@@ -209,14 +243,35 @@ class HomeFragment private constructor() : Fragment() {
             val spentAmount = view?.findViewById<TextView>(R.id.spentAmount)
             spentAmount?.text = "R ${String.format("%.2f", monthlyTotal)}"
 
-            // Calculate percentage of budget (assuming 6000 budget)
-            val budget = 6000.0
-            val percentage = if (budget > 0) (monthlyTotal / budget) * 100 else 0.0
+            // Calculate percentage of budget
+            val percentage = if (budgetAmount > 0) (monthlyTotal / budgetAmount) * 100 else 0.0
             val progressBar = view?.findViewById<android.widget.ProgressBar>(R.id.budgetProgress)
             progressBar?.progress = percentage.toInt()
 
             val percentageText = view?.findViewById<TextView>(R.id.maxGoalPercentage)
             percentageText?.text = "${percentage.toInt()}%"
+
+            // Update min and max goal text
+            val minGoalText = view?.findViewById<TextView>(R.id.minGoal)
+            if (minGoal != null && minGoal > 0) {
+                minGoalText?.text = "Min R${String.format("%.0f", minGoal)}"
+            } else {
+                minGoalText?.text = "Set a goal"
+            }
+
+            val maxGoalText = view?.findViewById<TextView>(R.id.maxGoal)
+            if (maxGoal != null && maxGoal > 0) {
+                maxGoalText?.text = "Max R${String.format("%.0f", maxGoal)}"
+            } else {
+                maxGoalText?.text = "Max R${String.format("%.0f", budgetAmount)}"
+            }
+
+            // Update spent amount text color based on budget usage
+            when {
+                percentage >= 100 -> spentAmount?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
+                percentage >= 80 -> spentAmount?.setTextColor(ContextCompat.getColor(requireContext(), R.color.terracotta))
+                else -> spentAmount?.setTextColor(ContextCompat.getColor(requireContext(), R.color.bark))
+            }
         }
     }
 }

@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:fontFamily="@font/playfair_display_bold"
-                    android:text="Michael Jackson"
+                    android:text="User"
                     android:textColor="@color/white"
                     android:textSize="20sp" />
 
@@ -60,11 +60,12 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:fontFamily="@font/lato_regular"
-                    android:text="michael@email.com"
+                    android:text="user@email.com"
                     android:textColor="@color/white_15"
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tvPointsBadge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -74,7 +75,7 @@
                     android:paddingTop="5dp"
                     android:paddingEnd="14dp"
                     android:paddingBottom="5dp"
-                    android:text="⭐ 1,240 pts · Silver Saver"
+                    android:text="⭐ 0 pts · Saver"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
 
@@ -111,12 +112,17 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
+                        <!-- Monthly Salary Row (WORKING) -->
                         <LinearLayout
+                            android:id="@+id/salaryRow"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:padding="16dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
 
                             <TextView
                                 android:layout_width="24dp"
@@ -135,12 +141,21 @@
                                 android:textSize="14sp" />
 
                             <TextView
+                                android:id="@+id/tvSalary"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/lato_regular"
-                                android:text="R 25,000"
-                                android:textColor="@color/brown_light"
+                                android:text="R 0.00"
+                                android:textColor="@color/forest"
                                 android:textSize="13sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:text="›"
+                                android:textColor="@color/hint_text"
+                                android:textSize="18sp" />
 
                         </LinearLayout>
 
@@ -149,6 +164,7 @@
                             android:layout_height="1dp"
                             android:background="@color/linen" />
 
+                        <!-- Edit Profile Row (WORKING) -->
                         <LinearLayout
                             android:id="@+id/btnEditProfile"
                             android:layout_width="match_parent"
@@ -156,7 +172,9 @@
                             android:orientation="horizontal"
                             android:padding="16dp"
                             android:gravity="center_vertical"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
 
                             <TextView
                                 android:layout_width="24dp"
@@ -202,7 +220,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="16dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="12dp"
                     app:cardElevation="1dp">
@@ -212,12 +230,17 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
+                        <!-- Dark Mode Row (NOT WORKING - Disabled/Placeholder) -->
                         <LinearLayout
+                            android:id="@+id/btnDarkMode"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:padding="16dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:alpha="0.5"
+                            android:clickable="false"
+                            android:focusable="false">
 
                             <TextView
                                 android:layout_width="24dp"
@@ -235,7 +258,13 @@
                                 android:textColor="@color/bark"
                                 android:textSize="14sp" />
 
-                            <!-- Switch commented out as per your note -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lato_regular"
+                                android:text="Coming soon"
+                                android:textColor="@color/hint_text"
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -244,12 +273,17 @@
                             android:layout_height="1dp"
                             android:background="@color/linen" />
 
+                        <!-- Notifications Row (NOT WORKING - Disabled/Placeholder) -->
                         <LinearLayout
+                            android:id="@+id/btnNotifications"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             android:padding="16dp"
-                            android:gravity="center_vertical">
+                            android:gravity="center_vertical"
+                            android:alpha="0.5"
+                            android:clickable="false"
+                            android:focusable="false">
 
                             <TextView
                                 android:layout_width="24dp"
@@ -267,7 +301,13 @@
                                 android:textColor="@color/bark"
                                 android:textSize="14sp" />
 
-                            <!-- Switch commented out as per your note -->
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lato_regular"
+                                android:text="Coming soon"
+                                android:textColor="@color/hint_text"
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -276,6 +316,50 @@
                             android:layout_height="1dp"
                             android:background="@color/linen" />
 
+                        <!-- Achievements/Badges Row (NOT WORKING - Disabled/Placeholder) -->
+                        <LinearLayout
+                            android:id="@+id/btnAchievements"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="16dp"
+                            android:gravity="center_vertical"
+                            android:alpha="0.5"
+                            android:clickable="false"
+                            android:focusable="false">
+
+                            <TextView
+                                android:layout_width="24dp"
+                                android:layout_height="wrap_content"
+                                android:text="🏅"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="12dp"
+                                android:layout_weight="1"
+                                android:fontFamily="@font/lato_bold"
+                                android:text="Achievements"
+                                android:textColor="@color/bark"
+                                android:textSize="14sp" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/lato_regular"
+                                android:text="Coming soon"
+                                android:textColor="@color/hint_text"
+                                android:textSize="12sp" />
+
+                        </LinearLayout>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/linen" />
+
+                        <!-- Theme Row (WORKING) -->
                         <LinearLayout
                             android:id="@+id/btnTheme"
                             android:layout_width="match_parent"
@@ -283,7 +367,9 @@
                             android:orientation="horizontal"
                             android:padding="16dp"
                             android:gravity="center_vertical"
-                            android:background="?attr/selectableItemBackground">
+                            android:background="?attr/selectableItemBackground"
+                            android:clickable="true"
+                            android:focusable="true">
 
                             <TextView
                                 android:layout_width="24dp"
@@ -314,17 +400,46 @@
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
-                <!-- Logout Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnLogout"
-                    style="@style/Widget.Spendid.Button.Text"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp"
+                <!-- Account Actions Section -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:backgroundTint="@color/terracotta_light"
+                    android:layout_marginBottom="8dp"
                     android:fontFamily="@font/lato_bold"
-                    android:text="🚪 Log Out"
-                    android:textColor="@color/red" />
+                    android:letterSpacing="0.15"
+                    android:text="ACCOUNT ACTIONS"
+                    android:textAllCaps="true"
+                    android:textColor="@color/hint_text"
+                    android:textSize="11sp" />
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <!-- Logout Button -->
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnLogout"
+                            style="@style/Widget.Spendid.Button.Text"
+                            android:layout_width="match_parent"
+                            android:layout_height="52dp"
+                            android:layout_margin="8dp"
+                            android:backgroundTint="@color/terracotta_light"
+                            android:fontFamily="@font/lato_bold"
+                            android:text="🚪 Log Out"
+                            android:textColor="@color/red" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
             </LinearLayout>
 
