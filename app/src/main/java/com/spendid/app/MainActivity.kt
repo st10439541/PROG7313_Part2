@@ -17,10 +17,15 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navReports: LinearLayout
     private lateinit var navProfile: LinearLayout
 
+    private var currentUsername: String = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+
+        // Get username from intent
+        currentUsername = intent.getStringExtra("USERNAME") ?: "User"
 
         navHome = findViewById(R.id.navHome)
         navExpenses = findViewById(R.id.navExpenses)
@@ -30,20 +35,17 @@ class MainActivity : AppCompatActivity() {
 
         setupClickListeners()
 
-        // ✅ Always load HomeFragment when activity is created (unless restoring state)
         if (savedInstanceState == null) {
-            loadFragment(HomeFragment())
-            highlightNavItem(navHome)  // visually highlight Home
+            loadFragment(HomeFragment.newInstance(currentUsername))
+            highlightNavItem(navHome)
         } else {
-            // Optionally restore which fragment was last shown
-            // For simplicity, we'll just ensure the correct highlight based on intent
             highlightCurrentMenuItem()
         }
     }
 
     private fun setupClickListeners() {
         navHome.setOnClickListener {
-            loadFragment(HomeFragment())
+            loadFragment(HomeFragment.newInstance(currentUsername))
             highlightNavItem(navHome)
         }
 
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navAdd.setOnClickListener {
-            Toast.makeText(this, "Add expense coming soon", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this, AddExpenseActivity::class.java))
         }
 
         navReports.setOnClickListener {
@@ -62,7 +64,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         navProfile.setOnClickListener {
-            loadFragment(ProfileFragment())
+            loadFragment(ProfileFragment.newInstance(currentUsername))
             highlightNavItem(navProfile)
         }
     }

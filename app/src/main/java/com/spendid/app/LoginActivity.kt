@@ -60,7 +60,6 @@ class LoginActivity : AppCompatActivity() {
             val user = repository.login(username, password)
 
             if (user != null) {
-
                 println("LOGIN SUCCESS: ${user.username}")
 
                 val intent = if (user.tutorialCompleted) {
@@ -70,15 +69,10 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 intent.putExtra("USER_ID", user.id)
-                intent.putExtra("USERNAME", user.username)
+                intent.putExtra("USERNAME", user.username)  // Add this line
 
                 startActivity(intent)
                 finish()
-
-            } else {
-                runOnUiThread {
-                    passwordLayout.error = "Incorrect username or password"
-                }
             }
         }
     }
