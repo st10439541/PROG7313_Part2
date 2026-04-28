@@ -344,19 +344,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/lato_bold"
                 android:letterSpacing="0.08"
                 android:text="TOP CATEGORIES"
                 android:textColor="@color/bark"
                 android:textSize="11sp" />
 
-            <!-- Category Chips -->
+            <!-- Category Chips - Fixed with MaterialButton -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:scrollbars="none">
+                android:scrollbars="none"
+                android:paddingBottom="4dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -365,21 +367,74 @@
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp">
 
-                    <TextView
-                        style="@style/Widget.Spendid.Chip.Selected"
-                        android:text="🍔 Food 38%" />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:backgroundTint="@color/forest"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="🍔 Food 38%"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
 
-                    <TextView
-                        style="@style/Widget.Spendid.Chip.Outline"
-                        android:text="🚗 Transport 24%" />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:backgroundTint="@color/white"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="🚗 Transport 24%"
+                        android:textAllCaps="false"
+                        android:textColor="@color/bark"
+                        android:textSize="12sp"
+                        app:strokeColor="@color/linen"
+                        app:strokeWidth="1.5dp" />
 
-                    <TextView
-                        style="@style/Widget.Spendid.Chip.Outline"
-                        android:text="💊 Health 18%" />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:layout_marginEnd="8dp"
+                        android:backgroundTint="@color/white"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="💊 Health 18%"
+                        android:textAllCaps="false"
+                        android:textColor="@color/bark"
+                        android:textSize="12sp"
+                        app:strokeColor="@color/linen"
+                        app:strokeWidth="1.5dp" />
 
-                    <TextView
-                        style="@style/Widget.Spendid.Chip.Outline"
-                        android:text="🛒 Shopping 12%" />
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="36dp"
+                        android:backgroundTint="@color/white"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="16dp"
+                        android:text="🛒 Shopping 12%"
+                        android:textAllCaps="false"
+                        android:textColor="@color/bark"
+                        android:textSize="12sp"
+                        app:strokeColor="@color/linen"
+                        app:strokeWidth="1.5dp" />
 
                 </LinearLayout>
 
