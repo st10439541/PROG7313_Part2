@@ -52,6 +52,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/greetingText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/lato_regular"
@@ -65,11 +66,12 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:fontFamily="@font/playfair_display_bold"
-                            android:text="Michael Jackson"
+                            android:text="User"
                             android:textColor="@color/white"
                             android:textSize="22sp" />
 
                         <TextView
+                            android:id="@+id/currentDate"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -131,7 +133,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/playfair_display_bold"
-                            android:text="R 4,250.00"
+                            android:text="R 0.00"
                             android:textColor="@color/bark"
                             android:textSize="36sp" />
 
@@ -156,7 +158,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="10dp"
                                 android:max="100"
-                                android:progress="72"
+                                android:progress="0"
                                 android:progressDrawable="@drawable/progress_bar_green" />
 
                             <LinearLayout
@@ -180,7 +182,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:fontFamily="@font/lato_bold"
-                                    android:text="72%"
+                                    android:text="0%"
                                     android:textColor="@color/honey"
                                     android:textSize="11sp" />
 
@@ -272,7 +274,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingStart="24dp"
-                android:paddingEnd="24dp" />
+                android:paddingEnd="24dp"
+                android:paddingBottom="24dp" />
 
         </LinearLayout>
 
