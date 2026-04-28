@@ -1,9 +1,10 @@
 package com.spendid.app
 
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -12,25 +13,30 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navHome: LinearLayout
     private lateinit var navExpenses: LinearLayout
-    private lateinit var navAdd: TextView          // still a TextView
+    private lateinit var navAdd: TextView
     private lateinit var navReports: LinearLayout
     private lateinit var navProfile: LinearLayout
+
+    private var currentUsername: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
+        // Get username from intent
+        currentUsername = intent.getStringExtra("USERNAME") ?: "User"
+
         navHome = findViewById(R.id.navHome)
         navExpenses = findViewById(R.id.navExpenses)
-        navAdd = findViewById(R.id.navAdd)         // TextView
+        navAdd = findViewById(R.id.navAdd)
         navReports = findViewById(R.id.navReports)
         navProfile = findViewById(R.id.navProfile)
 
         setupClickListeners()
 
         if (savedInstanceState == null) {
-            loadFragment(HomeFragment())
+            loadFragment(HomeFragment.newInstance(currentUsername))
             highlightNavItem(navHome)
         } else {
             highlightCurrentMenuItem()
@@ -39,27 +45,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupClickListeners() {
         navHome.setOnClickListener {
-            loadFragment(HomeFragment())
+            loadFragment(HomeFragment.newInstance(currentUsername))
             highlightNavItem(navHome)
         }
 
         navExpenses.setOnClickListener {
-            loadFragment(ExpenseListFragment())
+            loadFragment(ExpensesFragment())
             highlightNavItem(navExpenses)
         }
 
         navAdd.setOnClickListener {
-            loadFragment(AddExpenseFragment())
-            highlightNavItem(navAdd)   // now works because we accept View
+            startActivity(Intent(this, AddExpenseActivity::class.java))
         }
 
-//        navReports.setOnClickListener {
-//            loadFragment(ReportsFragment())
-//            highlightNavItem(navReports)
-//        }
+        navReports.setOnClickListener {
+            loadFragment(ReportsFragment())
+            highlightNavItem(navReports)
+        }
 
         navProfile.setOnClickListener {
-            loadFragment(ProfileFragment())
+            loadFragment(ProfileFragment.newInstance(currentUsername))
             highlightNavItem(navProfile)
         }
     }
@@ -67,30 +72,15 @@ class MainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.contentContainer, fragment)
-            .addToBackStack(null)
             .commit()
     }
 
-    // Now accepts any View, handles both TextView and parent containers
-    private fun highlightNavItem(selectedNav: View) {
-        // Build a list of all the clickable navigation items
-        val allNavItems = listOf<View>(navHome, navExpenses, navAdd, navReports, navProfile)
-
-        for (nav in allNavItems) {
-            val colorRes = if (nav == selectedNav) R.color.forest else R.color.hint_text
-            val colorInt = getColor(colorRes)
-
-            when (nav) {
-                is TextView -> {
-                    // The add button is already a TextView
-                    nav.setTextColor(colorInt)
-                }
-                is LinearLayout -> {
-                    // Nav items that contain an icon + text (child at index 1 is the label)
-                    val textView = nav.getChildAt(1) as? TextView
-                    textView?.setTextColor(colorInt)
-                }
-            }
+    private fun highlightNavItem(selectedNav: LinearLayout) {
+        val allNav = listOf(navHome, navExpenses, navReports, navProfile)
+        allNav.forEach { nav ->
+            val textView = nav.getChildAt(1) as? TextView
+            val color = if (nav == selectedNav) R.color.forest else R.color.hint_text
+            textView?.setTextColor(getColor(color))
         }
     }
 
@@ -99,9 +89,13 @@ class MainActivity : AppCompatActivity() {
         when (selected) {
             "home" -> highlightNavItem(navHome)
             "expenses" -> highlightNavItem(navExpenses)
-            "reports" -> highlightNavItem(navReports)
             "profile" -> highlightNavItem(navProfile)
             else -> highlightNavItem(navHome)
         }
+    }
+
+    fun navigateToReports() {
+        loadFragment(ReportsFragment())
+        highlightNavItem(navReports)
     }
 }

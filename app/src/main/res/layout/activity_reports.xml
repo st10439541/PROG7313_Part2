@@ -1,8 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-    activity_reports.xml
-    SPENDID — Reports & Analytics
--->
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -10,10 +6,21 @@
     android:layout_height="match_parent"
     android:background="@color/cream">
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBack"
+        style="@style/Widget.Spendid.Button.Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="← Back"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/bottomNav"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,22 +54,65 @@
 
             <!-- Period Tabs -->
             <LinearLayout
+                android:id="@+id/periodContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="16dp">
 
-                <TextView
-                    style="@style/Widget.Spendid.Chip.Selected"
-                    android:text="Monthly" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnMonthly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/forest"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Monthly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
 
-                <TextView
-                    style="@style/Widget.Spendid.Chip.Unselected"
-                    android:text="Weekly" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnWeekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/white"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Weekly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/bark"
+                    android:textSize="13sp"
+                    app:strokeColor="@color/linen"
+                    app:strokeWidth="1.5dp" />
 
-                <TextView
-                    style="@style/Widget.Spendid.Chip.Unselected"
-                    android:text="Yearly" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnYearly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="36dp"
+                    android:backgroundTint="@color/white"
+                    android:insetTop="0dp"
+                    android:insetBottom="0dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="Yearly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/bark"
+                    android:textSize="13sp"
+                    app:strokeColor="@color/linen"
+                    app:strokeWidth="1.5dp" />
 
             </LinearLayout>
 
@@ -92,23 +142,28 @@
                         android:textColor="@color/bark"
                         android:textSize="16sp" />
 
-                    <!-- Chart Placeholder -->
-                    <View
+                    <com.github.mikephil.charting.charts.BarChart
                         android:id="@+id/chartIncomeExpense"
                         android:layout_width="match_parent"
-                        android:layout_height="160dp"
-                        />
-                    <!--
-                    there should be a chart this was a placeholder
-                    android:background="@drawable/bg_chart_placeholder" />
-                    -->
+                        android:layout_height="200dp" />
 
-                    <!-- Legend -->
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvIncomeExpenseSummary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:orientation="horizontal">
+                        android:fontFamily="@font/lato_bold"
+                        android:gravity="center"
+                        android:text="Surplus: R 0.00"
+                        android:textColor="@color/forest"
+                        android:textSize="14sp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal"
+                        android:gravity="center">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -118,8 +173,8 @@
                             android:orientation="horizontal">
 
                             <View
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
                                 android:layout_marginEnd="6dp"
                                 android:background="@drawable/bg_dot_green" />
 
@@ -127,9 +182,9 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/lato_regular"
-                                android:text="Income"
+                                android:text="Income (Budget)"
                                 android:textColor="@color/brown_light"
-                                android:textSize="11sp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -140,8 +195,8 @@
                             android:orientation="horizontal">
 
                             <View
-                                android:layout_width="10dp"
-                                android:layout_height="10dp"
+                                android:layout_width="12dp"
+                                android:layout_height="12dp"
                                 android:layout_marginEnd="6dp"
                                 android:background="@drawable/bg_dot_orange" />
 
@@ -151,7 +206,7 @@
                                 android:fontFamily="@font/lato_regular"
                                 android:text="Expenses"
                                 android:textColor="@color/brown_light"
-                                android:textSize="11sp" />
+                                android:textSize="12sp" />
 
                         </LinearLayout>
 
@@ -198,15 +253,4 @@
         </LinearLayout>
 
     </ScrollView>
-
-    <!-- Bottom Navigation -->
-    <include
-        android:id="@+id/bottomNav"
-        layout="@layout/layout_bottom_nav"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

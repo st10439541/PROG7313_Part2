@@ -33,6 +33,7 @@
 
         <!-- Features -->
         <activity android:name=".ProfileActivity" android:exported="false" />
+        <activity android:name=".SetBudgetActivity" android:exported="false"/>
 
     </application>
 

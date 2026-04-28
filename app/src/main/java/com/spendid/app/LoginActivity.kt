@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
 
         findViewById<MaterialButton>(R.id.btnGoToRegister).setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
-            finish() // optional but prevents back loop
+            finish()
         }
 
         findViewById<MaterialButton>(R.id.btnLogin).setOnClickListener {
@@ -60,7 +60,6 @@ class LoginActivity : AppCompatActivity() {
             val user = repository.login(username, password)
 
             if (user != null) {
-
                 println("LOGIN SUCCESS: ${user.username}")
 
                 val intent = if (user.tutorialCompleted) {
@@ -70,14 +69,10 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 intent.putExtra("USER_ID", user.id)
+                intent.putExtra("USERNAME", user.username)  // Add this line
 
                 startActivity(intent)
-                finish() // ✅ IMPORTANT: close login properly
-
-            } else {
-                runOnUiThread {
-                    passwordLayout.error = "Incorrect username or password"
-                }
+                finish()
             }
         }
     }
