@@ -200,7 +200,7 @@ class DatabaseHelper(context: Context) :
                 try {
                     db.execSQL("ALTER TABLE $TABLE_EXPENSES ADD COLUMN $COL_EXPENSE_CATEGORY_ID INTEGER DEFAULT 1")
                 } catch (e: Exception) {
-                    // Column might already exist
+                    // Column might already exist or other error
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
