@@ -28,38 +28,43 @@ class ReportsRepository(private val dbHelper: DatabaseHelper) {
         val db = dbHelper.readableDatabase
         val results = mutableListOf<CategorySpending>()
 
+        // Updated query to join with categories table
         val query = """
             SELECT 
-                ${DatabaseHelper.COL_CATEGORY},
-                SUM(${DatabaseHelper.COL_AMOUNT}) as total_spent
+                ${DatabaseHelper.TABLE_CATEGORIES}.${DatabaseHelper.COL_CATEGORY_NAME} as category_name,
+                ${DatabaseHelper.TABLE_CATEGORIES}.${DatabaseHelper.COL_CATEGORY_ICON} as category_icon,
+                SUM(${DatabaseHelper.TABLE_EXPENSES}.${DatabaseHelper.COL_AMOUNT}) as total_spent
             FROM ${DatabaseHelper.TABLE_EXPENSES}
-            WHERE ${DatabaseHelper.COL_DATE} BETWEEN ? AND ?
-            GROUP BY ${DatabaseHelper.COL_CATEGORY}
+            JOIN ${DatabaseHelper.TABLE_CATEGORIES} 
+                ON ${DatabaseHelper.TABLE_EXPENSES}.${DatabaseHelper.COL_EXPENSE_CATEGORY_ID} = ${DatabaseHelper.TABLE_CATEGORIES}.${DatabaseHelper.COL_CATEGORY_ID}
+            WHERE ${DatabaseHelper.TABLE_EXPENSES}.${DatabaseHelper.COL_DATE} BETWEEN ? AND ?
+            GROUP BY ${DatabaseHelper.TABLE_CATEGORIES}.${DatabaseHelper.COL_CATEGORY_NAME}
             ORDER BY total_spent DESC
         """.trimIndent()
 
         val cursor = db.rawQuery(query, arrayOf(startDate, endDate))
 
         var grandTotal = 0.0
-        val tempList = mutableListOf<Pair<String, Double>>()
+        val tempList = mutableListOf<Triple<String, String, Double>>()
 
         while (cursor.moveToNext()) {
-            val category = cursor.getString(cursor.getColumnIndexOrThrow(DatabaseHelper.COL_CATEGORY))
+            val categoryName = cursor.getString(cursor.getColumnIndexOrThrow("category_name"))
+            val categoryIcon = cursor.getString(cursor.getColumnIndexOrThrow("category_icon"))
             val total = cursor.getDouble(cursor.getColumnIndexOrThrow("total_spent"))
-            tempList.add(category to total)
+            tempList.add(Triple(categoryName, categoryIcon, total))
             grandTotal += total
         }
         cursor.close()
 
         // Calculate percentages and create result objects
-        tempList.forEach { (category, total) ->
+        tempList.forEach { (categoryName, categoryIcon, total) ->
             val percentage = if (grandTotal > 0) (total / grandTotal) * 100 else 0.0
             results.add(
                 CategorySpending(
-                    category = category,
+                    category = categoryName,
                     totalAmount = total,
                     percentage = percentage,
-                    icon = getCategoryIcon(category)
+                    icon = categoryIcon
                 )
             )
         }

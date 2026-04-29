@@ -9,6 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.BarData
@@ -17,6 +18,7 @@ import com.github.mikephil.charting.data.BarEntry
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.button.MaterialButton
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,8 +29,11 @@ class ReportsFragment : Fragment() {
     private lateinit var btnMonthly: MaterialButton
     private lateinit var btnWeekly: MaterialButton
     private lateinit var btnYearly: MaterialButton
+
     private val expenseRepository by lazy { ExpenseRepository(DatabaseHelper(requireContext())) }
     private val budgetRepository by lazy { BudgetRepository(DatabaseHelper(requireContext())) }
+    private val categoryRepository by lazy { CategoryRepository(DatabaseHelper(requireContext())) }
+
     private var currentStartDate: String = ""
     private var currentEndDate: String = ""
     private var currentPeriodType: String = "monthly"
@@ -55,8 +60,7 @@ class ReportsFragment : Fragment() {
         btnWeekly = view.findViewById(R.id.btnWeekly)
         btnYearly = view.findViewById(R.id.btnYearly)
 
-        // Hide the back button since we're using bottom navigation
-        val backButton = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.btnBack)
+        val backButton = view.findViewById<MaterialButton>(R.id.btnBack)
         backButton?.visibility = View.GONE
     }
 
@@ -81,7 +85,6 @@ class ReportsFragment : Fragment() {
     }
 
     private fun updateButtonSelection(selectedButton: MaterialButton) {
-        // Reset all buttons
         val buttons = listOf(btnMonthly, btnWeekly, btnYearly)
         buttons.forEach { button ->
             button.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.white)
@@ -90,7 +93,6 @@ class ReportsFragment : Fragment() {
             button.strokeWidth = 2
         }
 
-        // Highlight selected button
         selectedButton.backgroundTintList = ContextCompat.getColorStateList(requireContext(), R.color.forest)
         selectedButton.setTextColor(ContextCompat.getColor(requireContext(), R.color.white))
         selectedButton.strokeWidth = 0
@@ -103,7 +105,6 @@ class ReportsFragment : Fragment() {
         calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH))
         currentEndDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
         loadReportData()
-        loadIncomeVsExpenses()
     }
 
     private fun loadWeekly() {
@@ -113,7 +114,6 @@ class ReportsFragment : Fragment() {
         calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY)
         currentEndDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
         loadReportData()
-        loadIncomeVsExpenses()
     }
 
     private fun loadYearly() {
@@ -123,37 +123,40 @@ class ReportsFragment : Fragment() {
         calendar.set(Calendar.DAY_OF_YEAR, calendar.getActualMaximum(Calendar.DAY_OF_YEAR))
         currentEndDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(calendar.time)
         loadReportData()
-        loadIncomeVsExpenses()
     }
 
     private fun loadReportData() {
-        val spendingByCategory = getSpendingByCategory(currentStartDate, currentEndDate)
-        updateCategoryBreakdown(spendingByCategory)
+        lifecycleScope.launch {
+            val spendingByCategory = getSpendingByCategory(currentStartDate, currentEndDate)
+            updateCategoryBreakdown(spendingByCategory)
+            loadIncomeVsExpenses()
+        }
     }
 
-    private fun getSpendingByCategory(startDate: String, endDate: String): List<CategorySpending> {
+    private suspend fun getSpendingByCategory(startDate: String, endDate: String): List<CategorySpending> {
         val expenses = expenseRepository.getAllExpenses()
         val filteredExpenses = expenses.filter { expense ->
             expense.date >= startDate && expense.date <= endDate
         }
 
-        val totalByCategory = mutableMapOf<String, Double>()
+        val totalByCategory = mutableMapOf<Int, Double>()
 
         for (expense in filteredExpenses) {
-            totalByCategory[expense.category] = totalByCategory.getOrDefault(expense.category, 0.0) + expense.amount
+            totalByCategory[expense.categoryId] = totalByCategory.getOrDefault(expense.categoryId, 0.0) + expense.amount
         }
 
         val grandTotal = totalByCategory.values.sum()
         val results = mutableListOf<CategorySpending>()
 
-        for ((category, total) in totalByCategory) {
+        for ((categoryId, total) in totalByCategory) {
+            val category = categoryRepository.getCategoryById(categoryId)
             val percentage = if (grandTotal > 0) (total / grandTotal) * 100 else 0.0
             results.add(
                 CategorySpending(
-                    category = category,
+                    categoryName = category?.name ?: "Unknown",
+                    categoryIcon = category?.icon ?: "📦",
                     totalAmount = total,
-                    percentage = percentage,
-                    icon = getCategoryIcon(category)
+                    percentage = percentage
                 )
             )
         }
@@ -162,23 +165,23 @@ class ReportsFragment : Fragment() {
     }
 
     private fun loadIncomeVsExpenses() {
-        val expenses = expenseRepository.getAllExpenses()
-        val filteredExpenses = expenses.filter { expense ->
-            expense.date >= currentStartDate && expense.date <= currentEndDate
+        lifecycleScope.launch {
+            val expenses = expenseRepository.getAllExpenses()
+            val filteredExpenses = expenses.filter { expense ->
+                expense.date >= currentStartDate && expense.date <= currentEndDate
+            }
+
+            val totalExpenses = filteredExpenses.sumOf { it.amount }
+            val currentBudget = budgetRepository.getCurrentBudget()
+            val totalIncome = currentBudget?.amount ?: 0.0
+
+            setupBarChart(totalIncome, totalExpenses)
+            addIncomeExpenseSummary(totalIncome, totalExpenses)
         }
-
-        val totalExpenses = filteredExpenses.sumOf { it.amount }
-
-        val currentBudget = budgetRepository.getCurrentBudget()
-        val totalIncome = currentBudget?.amount ?: 0.0
-
-        setupBarChart(totalIncome, totalExpenses)
-        addIncomeExpenseSummary(totalIncome, totalExpenses)
     }
 
     private fun setupBarChart(income: Double, expenses: Double) {
         val entries = ArrayList<BarEntry>()
-
         entries.add(BarEntry(0f, income.toFloat()))
         entries.add(BarEntry(1f, expenses.toFloat()))
 
@@ -234,15 +237,6 @@ class ReportsFragment : Fragment() {
         }
     }
 
-    private fun getCategoryIcon(category: String): String = when (category.lowercase()) {
-        "food" -> "🍔"
-        "transport" -> "🚗"
-        "health" -> "💊"
-        "shopping" -> "🛒"
-        "entertainment" -> "🎬"
-        else -> "📦"
-    }
-
     private fun updateCategoryBreakdown(categories: List<CategorySpending>) {
         categoryBreakdownContainer.removeAllViews()
 
@@ -274,8 +268,8 @@ class ReportsFragment : Fragment() {
         val percentageText = view.findViewById<TextView>(R.id.categoryPercentage)
         val progressBar = view.findViewById<ProgressBar>(R.id.categoryProgress)
 
-        iconText.text = category.icon
-        nameText.text = category.category
+        iconText.text = category.categoryIcon
+        nameText.text = category.categoryName
         amountText.text = "R ${String.format("%.2f", category.totalAmount)}"
         percentageText.text = "${String.format("%.0f", category.percentage)}%"
         progressBar.progress = category.percentage.toInt()
@@ -284,9 +278,9 @@ class ReportsFragment : Fragment() {
     }
 
     data class CategorySpending(
-        val category: String,
+        val categoryName: String,
+        val categoryIcon: String,
         val totalAmount: Double,
-        val percentage: Double,
-        val icon: String
+        val percentage: Double
     )
 }

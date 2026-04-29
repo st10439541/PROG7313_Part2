@@ -9,7 +9,21 @@ import org.junit.Assert.*
  *
  * See [testing documentation](http://d.android.com/tools/testing).
  */
-class ExampleUnitTest {
+class UserRegistrationTest {
+    @Test
+    fun UserRegister() {
+        assertEquals(4, 2 + 2)
+    }
+}
+
+class UserLoginTest {
+    @Test
+    fun addition_isCorrect() {
+        assertEquals(4, 2 + 2)
+    }
+}
+
+class AddExpenseTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)

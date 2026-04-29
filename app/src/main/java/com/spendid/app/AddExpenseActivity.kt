@@ -4,75 +4,129 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.net.Uri
 import android.os.Bundle
-import android.widget.ImageView
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.chip.Chip
-import com.google.android.material.chip.ChipGroup
 import com.google.android.material.textfield.TextInputEditText
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Locale
+import java.util.*
+import android.view.View
+import android.view.ViewGroup
 
 class AddExpenseActivity : AppCompatActivity() {
 
-    private var imageUri: String? = null
-
-    private val repository by lazy {
-        ExpenseRepository(DatabaseHelper(this))
-    }
-
-    // Views
     private lateinit var etAmount: TextInputEditText
     private lateinit var etDescription: TextInputEditText
-    private lateinit var chipGroupCategory: ChipGroup
+    private lateinit var spinnerCategory: Spinner
     private lateinit var btnDate: MaterialButton
     private lateinit var btnTime: MaterialButton
-    private lateinit var ivReceiptPreview: ImageView
-    private lateinit var btnAttachReceipt: MaterialButton
     private lateinit var btnSave: MaterialButton
     private lateinit var btnBack: MaterialButton
+    private lateinit var btnAddCategory: MaterialButton
 
-    // Data holders
-    private var selectedCategory: String = "Food"
+    private var selectedCategoryId: Int = 1
     private var selectedDate: String = ""
     private var selectedTime: String = ""
 
-    private val imagePicker = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        if (uri != null) {
-            imageUri = uri.toString()
-            ivReceiptPreview.setImageURI(uri)
-            ivReceiptPreview.visibility = ImageView.VISIBLE
-        }
-    }
+    private val repository by lazy { ExpenseRepository(DatabaseHelper(this)) }
+    private val categoryRepository by lazy { CategoryRepository(DatabaseHelper(this)) }
+    private var categories: List<Category> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_expense)
 
-        // Bind views
         etAmount = findViewById(R.id.etAmount)
         etDescription = findViewById(R.id.etDescription)
-        chipGroupCategory = findViewById(R.id.chipGroupCategory)
+        spinnerCategory = findViewById(R.id.spinnerCategory)
         btnDate = findViewById(R.id.btnDate)
         btnTime = findViewById(R.id.btnTime)
-        ivReceiptPreview = findViewById(R.id.ivReceiptPreview)
-        btnAttachReceipt = findViewById(R.id.btnAttachReceipt)
         btnSave = findViewById(R.id.btnSave)
         btnBack = findViewById(R.id.btnBack)
+        btnAddCategory = findViewById(R.id.btnAddCategory)
 
-        // Set default date & time
+        loadCategories()
         setDefaultDateTime()
-
-        // Setup listeners
-        setupCategorySelection()
         setupDatePicker()
         setupTimePicker()
-        setupImagePicker()
         setupSaveButton()
         setupBackButton()
+        setupAddCategoryButton()
+    }
+
+    private fun loadCategories() {
+        categories = categoryRepository.getAllCategories()
+
+        // Create a custom adapter that shows icon + name
+        val adapter = object : ArrayAdapter<Category>(
+            this,
+            android.R.layout.simple_spinner_item,
+            categories
+        ) {
+            override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = convertView ?: layoutInflater.inflate(
+                    android.R.layout.simple_spinner_item, parent, false
+                )
+                val textView = view as android.widget.TextView
+                val category = getItem(position)
+                textView.text = "${category?.icon} ${category?.name}"
+                return view
+            }
+
+            override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+                val view = convertView ?: layoutInflater.inflate(
+                    android.R.layout.simple_spinner_dropdown_item, parent, false
+                )
+                val textView = view as android.widget.TextView
+                val category = getItem(position)
+                textView.text = "${category?.icon} ${category?.name}"
+                return view
+            }
+        }
+
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerCategory.adapter = adapter
+
+        spinnerCategory.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                selectedCategoryId = categories[position].categoryId
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+    }
+
+    private fun setupAddCategoryButton() {
+        btnAddCategory.setOnClickListener {
+            showAddCategoryDialog()
+        }
+    }
+
+    private fun showAddCategoryDialog() {
+        val input = android.widget.EditText(this)
+        input.hint = "Enter category name"
+
+        AlertDialog.Builder(this)
+            .setTitle("Add New Category")
+            .setView(input)
+            .setPositiveButton("Add") { _, _ ->
+                val name = input.text.toString().trim()
+                if (name.isNotEmpty()) {
+                    val result = categoryRepository.insertCategory(name)
+                    if (result != -1L) {
+                        Toast.makeText(this, "Category added", Toast.LENGTH_SHORT).show()
+                        loadCategories() // Refresh spinner
+                    } else {
+                        Toast.makeText(this, "Category already exists", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
     }
 
     private fun setDefaultDateTime() {
@@ -81,24 +135,9 @@ class AddExpenseActivity : AppCompatActivity() {
         val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
         selectedDate = dateFormat.format(calendar.time)
         selectedTime = timeFormat.format(calendar.time)
-        // Display format for buttons
         val displayDateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         btnDate.text = displayDateFormat.format(calendar.time)
         btnTime.text = selectedTime
-    }
-
-    private fun setupCategorySelection() {
-        chipGroupCategory.setOnCheckedStateChangeListener { group, checkedIds ->
-            if (checkedIds.isNotEmpty()) {
-                val chip = group.findViewById<Chip>(checkedIds[0])
-                // Extract category name after emoji: e.g., "🍔 Food" -> "Food"
-                selectedCategory = chip.text.toString().substringAfter(' ').trim()
-            }
-        }
-        // Pre-select first chip (index 0) as default
-        if (chipGroupCategory.childCount > 0) {
-            (chipGroupCategory.getChildAt(0) as? Chip)?.isChecked = true
-        }
     }
 
     private fun setupDatePicker() {
@@ -138,12 +177,6 @@ class AddExpenseActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupImagePicker() {
-        btnAttachReceipt.setOnClickListener {
-            imagePicker.launch("image/*")
-        }
-    }
-
     private fun setupSaveButton() {
         btnSave.setOnClickListener {
             val amountText = etAmount.text.toString().trim()
@@ -162,10 +195,10 @@ class AddExpenseActivity : AppCompatActivity() {
             val result = repository.insertExpense(
                 amount,
                 description,
-                selectedCategory,
+                selectedCategoryId,
                 selectedDate,
                 selectedTime,
-                imageUri   // matches your repository parameter name
+                null
             )
 
             if (result > 0) {

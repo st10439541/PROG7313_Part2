@@ -10,7 +10,7 @@ class DatabaseHelper(context: Context) :
     companion object {
 
         const val DATABASE_NAME = "spendid.db"
-        const val DATABASE_VERSION = 6  // Updated to version 6
+        const val DATABASE_VERSION = 7
 
         // ================= USERS =================
         const val TABLE_USERS = "users"
@@ -33,7 +33,7 @@ class DatabaseHelper(context: Context) :
         const val COL_EXPENSE_ID = "id"
         const val COL_AMOUNT = "amount"
         const val COL_DESCRIPTION = "description"
-        const val COL_CATEGORY = "category"
+        const val COL_EXPENSE_CATEGORY_ID = "expenseCategoryId"  // Changed to avoid conflict
         const val COL_DATE = "date"
         const val COL_START_TIME = "startTime"
         const val COL_END_TIME = "endTime"
@@ -47,10 +47,15 @@ class DatabaseHelper(context: Context) :
         const val COL_BUDGET_YEAR = "year"
         const val COL_BUDGET_MIN_GOAL = "min_goal"
         const val COL_BUDGET_MAX_GOAL = "max_goal"
+
+        // ================= CATEGORIES =================
+        const val TABLE_CATEGORIES = "categories"
+        const val COL_CATEGORY_ID = "categoryId"
+        const val COL_CATEGORY_NAME = "name"
+        const val COL_CATEGORY_ICON = "icon"
     }
 
     override fun onCreate(db: SQLiteDatabase) {
-
         // Create Users Table
         db.execSQL(
             """
@@ -70,6 +75,33 @@ class DatabaseHelper(context: Context) :
             """.trimIndent()
         )
 
+        // Create Categories Table
+        db.execSQL(
+            """
+            CREATE TABLE $TABLE_CATEGORIES (
+                $COL_CATEGORY_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COL_CATEGORY_NAME TEXT NOT NULL UNIQUE,
+                $COL_CATEGORY_ICON TEXT NOT NULL
+            )
+            """.trimIndent()
+        )
+
+        // Insert default categories
+        val defaultCategories = listOf(
+            "Food" to "🍔",
+            "Transport" to "🚗",
+            "Health" to "💊",
+            "Shopping" to "🛒",
+            "Entertainment" to "🎬",
+            "Other" to "📦"
+        )
+
+        for ((name, icon) in defaultCategories) {
+            db.execSQL(
+                "INSERT INTO $TABLE_CATEGORIES ($COL_CATEGORY_NAME, $COL_CATEGORY_ICON) VALUES ('$name', '$icon')"
+            )
+        }
+
         // Create Expenses Table
         db.execSQL(
             """
@@ -77,11 +109,12 @@ class DatabaseHelper(context: Context) :
                 $COL_EXPENSE_ID INTEGER PRIMARY KEY AUTOINCREMENT,
                 $COL_AMOUNT REAL NOT NULL,
                 $COL_DESCRIPTION TEXT NOT NULL,
-                $COL_CATEGORY TEXT NOT NULL,
+                $COL_EXPENSE_CATEGORY_ID INTEGER NOT NULL,
                 $COL_DATE TEXT NOT NULL,
                 $COL_START_TIME TEXT NOT NULL,
                 $COL_END_TIME TEXT NOT NULL,
-                $COL_IMAGE_URI TEXT
+                $COL_IMAGE_URI TEXT,
+                FOREIGN KEY ($COL_EXPENSE_CATEGORY_ID) REFERENCES $TABLE_CATEGORIES($COL_CATEGORY_ID)
             )
             """.trimIndent()
         )
@@ -103,11 +136,8 @@ class DatabaseHelper(context: Context) :
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-
-        // Handle incremental upgrades instead of full reset
         if (oldVersion < 5) {
             try {
-                // Add new columns to users table if they don't exist
                 db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_FINANCIAL_GOAL TEXT DEFAULT ''")
                 db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_SPENDING_HABIT TEXT DEFAULT ''")
                 db.execSQL("ALTER TABLE $TABLE_USERS ADD COLUMN $COL_BUDGET_ALERTS INTEGER DEFAULT 1")
@@ -119,7 +149,6 @@ class DatabaseHelper(context: Context) :
             }
         }
 
-        // Add budget table for version 6
         if (oldVersion < 6) {
             try {
                 db.execSQL(
@@ -135,6 +164,44 @@ class DatabaseHelper(context: Context) :
                     )
                     """.trimIndent()
                 )
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
+
+        if (oldVersion < 7) {
+            try {
+                // Create categories table
+                db.execSQL(
+                    """
+                    CREATE TABLE IF NOT EXISTS $TABLE_CATEGORIES (
+                        $COL_CATEGORY_ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                        $COL_CATEGORY_NAME TEXT NOT NULL UNIQUE,
+                        $COL_CATEGORY_ICON TEXT NOT NULL
+                    )
+                    """.trimIndent()
+                )
+
+                // Insert default categories
+                val defaultCategories = listOf(
+                    "Food" to "🍔",
+                    "Transport" to "🚗",
+                    "Health" to "💊",
+                    "Shopping" to "🛒",
+                    "Entertainment" to "🎬",
+                    "Other" to "📦"
+                )
+
+                for ((name, icon) in defaultCategories) {
+                    db.execSQL("INSERT OR IGNORE INTO $TABLE_CATEGORIES ($COL_CATEGORY_NAME, $COL_CATEGORY_ICON) VALUES ('$name', '$icon')")
+                }
+
+                // Add expenseCategoryId column to expenses if it doesn't exist
+                try {
+                    db.execSQL("ALTER TABLE $TABLE_EXPENSES ADD COLUMN $COL_EXPENSE_CATEGORY_ID INTEGER DEFAULT 1")
+                } catch (e: Exception) {
+                    // Column might already exist
+                }
             } catch (e: Exception) {
                 e.printStackTrace()
             }

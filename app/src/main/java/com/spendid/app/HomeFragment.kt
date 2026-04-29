@@ -21,6 +21,8 @@ class HomeFragment private constructor() : Fragment() {
     private lateinit var recentExpensesContainer: LinearLayout
     private lateinit var expenseRepository: ExpenseRepository
     private lateinit var budgetRepository: BudgetRepository
+    private lateinit var categoryRepository: CategoryRepository
+    private lateinit var expenseAdapter: ExpenseAdapter
 
     companion object {
         fun newInstance(username: String): HomeFragment {
@@ -35,8 +37,10 @@ class HomeFragment private constructor() : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         username = arguments?.getString("USERNAME") ?: "User"
-        expenseRepository = ExpenseRepository(DatabaseHelper(requireContext()))
-        budgetRepository = BudgetRepository(DatabaseHelper(requireContext()))
+        val dbHelper = DatabaseHelper(requireContext())
+        expenseRepository = ExpenseRepository(dbHelper)
+        budgetRepository = BudgetRepository(dbHelper)
+        categoryRepository = CategoryRepository(dbHelper)
     }
 
     override fun onCreateView(
@@ -89,21 +93,6 @@ class HomeFragment private constructor() : Fragment() {
         val btnViewAll = view.findViewById<TextView>(R.id.btnViewAll)
         btnViewAll?.setOnClickListener {
             // Navigate to full expense list
-            (activity as? MainActivity)?.let {
-                // You can add navigation to ExpenseListActivity here
-            }
-        }
-
-        // Handle notification bell click
-        val btnNotifications = view.findViewById<TextView>(R.id.btnNotifications)
-        btnNotifications?.setOnClickListener {
-            // Show notifications - you can implement this
-        }
-
-        // Handle badges click
-        val btnBadges = view.findViewById<TextView>(R.id.btnBadges)
-        btnBadges?.setOnClickListener {
-            // Navigate to badges screen - you can implement this
         }
 
         // Load recent expenses
@@ -115,7 +104,6 @@ class HomeFragment private constructor() : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // Refresh data when returning to the fragment
         loadRecentExpenses()
         loadBudgetData()
     }
@@ -123,8 +111,6 @@ class HomeFragment private constructor() : Fragment() {
     private fun loadRecentExpenses() {
         lifecycleScope.launch {
             val expenses = expenseRepository.getAllExpenses()
-
-            // Take only the first 5 most recent expenses
             val recentExpenses = expenses.take(5)
 
             if (recentExpenses.isEmpty()) {
@@ -153,36 +139,19 @@ class HomeFragment private constructor() : Fragment() {
         val meta = view.findViewById<TextView>(R.id.expenseMeta)
         val amount = view.findViewById<TextView>(R.id.expenseAmount)
 
-        // Set icon based on category
-        icon.text = getCategoryIcon(expense.category)
+        // Get category info
+        val category = categoryRepository.getCategoryById(expense.categoryId)
+        val categoryIcon = category?.icon ?: "📦"
+        val categoryName = category?.name ?: "Unknown"
 
-        // Set title (description)
+        icon.text = categoryIcon
         title.text = expense.description
 
-        // Set meta (category and formatted date)
         val formattedDate = formatDate(expense.date)
-        meta.text = "${expense.category} • $formattedDate"
-
-        // Set amount
+        meta.text = "$categoryName • $formattedDate"
         amount.text = "R ${String.format("%.2f", expense.amount)}"
 
-        // Add click listener to view expense details (optional)
-        view.setOnClickListener {
-            // You can add navigation to expense detail here
-        }
-
         return view
-    }
-
-    private fun getCategoryIcon(category: String): String {
-        return when (category.lowercase()) {
-            "food" -> "🍔"
-            "transport" -> "🚗"
-            "health" -> "💊"
-            "shopping" -> "🛒"
-            "entertainment" -> "🎬"
-            else -> "📦"
-        }
     }
 
     private fun formatDate(dateString: String): String {
@@ -213,14 +182,9 @@ class HomeFragment private constructor() : Fragment() {
     private fun loadBudgetData() {
         lifecycleScope.launch {
             val expenses = expenseRepository.getAllExpenses()
-
-            // Get current budget from database
             val currentBudget = budgetRepository.getCurrentBudget()
-            val budgetAmount = currentBudget?.amount ?: 6000.0 // Default to 6000 if no budget set
-            val minGoal = currentBudget?.minGoal
-            val maxGoal = currentBudget?.maxGoal
+            val budgetAmount = currentBudget?.amount ?: 6000.0
 
-            // Calculate total spent this month
             val calendar = Calendar.getInstance()
             val currentMonth = calendar.get(Calendar.MONTH)
             val currentYear = calendar.get(Calendar.YEAR)
@@ -239,11 +203,9 @@ class HomeFragment private constructor() : Fragment() {
                 }
             }.sumOf { it.amount }
 
-            // Update UI with budget data
             val spentAmount = view?.findViewById<TextView>(R.id.spentAmount)
             spentAmount?.text = "R ${String.format("%.2f", monthlyTotal)}"
 
-            // Calculate percentage of budget
             val percentage = if (budgetAmount > 0) (monthlyTotal / budgetAmount) * 100 else 0.0
             val progressBar = view?.findViewById<android.widget.ProgressBar>(R.id.budgetProgress)
             progressBar?.progress = percentage.toInt()
@@ -251,7 +213,9 @@ class HomeFragment private constructor() : Fragment() {
             val percentageText = view?.findViewById<TextView>(R.id.maxGoalPercentage)
             percentageText?.text = "${percentage.toInt()}%"
 
-            // Update min and max goal text
+            val minGoal = currentBudget?.minGoal
+            val maxGoal = currentBudget?.maxGoal
+
             val minGoalText = view?.findViewById<TextView>(R.id.minGoal)
             if (minGoal != null && minGoal > 0) {
                 minGoalText?.text = "Min R${String.format("%.0f", minGoal)}"
@@ -266,7 +230,6 @@ class HomeFragment private constructor() : Fragment() {
                 maxGoalText?.text = "Max R${String.format("%.0f", budgetAmount)}"
             }
 
-            // Update spent amount text color based on budget usage
             when {
                 percentage >= 100 -> spentAmount?.setTextColor(ContextCompat.getColor(requireContext(), R.color.red))
                 percentage >= 80 -> spentAmount?.setTextColor(ContextCompat.getColor(requireContext(), R.color.terracotta))
