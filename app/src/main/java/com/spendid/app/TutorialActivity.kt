@@ -10,13 +10,14 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.button.MaterialButton
 import kotlinx.coroutines.launch
+import java.util.Calendar
 
 class TutorialActivity : AppCompatActivity() {
 
     private lateinit var viewPager: ViewPager2
     private lateinit var btnBack: MaterialButton
     private lateinit var btnNext: MaterialButton
-    private lateinit var btnSkip: TextView             // ← CHANGED from MaterialButton
+    private lateinit var btnSkip: TextView
     private lateinit var stepIndicator: TextView
     private lateinit var title: TextView
     private lateinit var dot1: View
@@ -25,19 +26,22 @@ class TutorialActivity : AppCompatActivity() {
     private lateinit var dot4: View
 
     private var userId: Int = -1
+    private var username: String = ""
 
-    private val repository by lazy { UserRepository(DatabaseHelper(this)) }
+    private val userRepository by lazy { UserRepository(DatabaseHelper(this)) }
+    private val budgetRepository by lazy { BudgetRepository(DatabaseHelper(this)) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tutorial)
 
         userId = intent.getIntExtra("USER_ID", -1)
+        username = intent.getStringExtra("USERNAME") ?: ""
 
         viewPager = findViewById(R.id.viewPager)
         btnBack = findViewById(R.id.btnBack)
         btnNext = findViewById(R.id.btnNext)
-        btnSkip = findViewById(R.id.btnSkip)       // now a TextView
+        btnSkip = findViewById(R.id.btnSkip)
         stepIndicator = findViewById(R.id.stepIndicator)
         title = findViewById(R.id.title)
         dot1 = findViewById(R.id.dot1)
@@ -94,12 +98,47 @@ class TutorialActivity : AppCompatActivity() {
 
     private fun completeTutorial() {
         lifecycleScope.launch {
-            val user = repository.getUserById(userId)
+            // Get data from fragments
+            val step1Fragment = supportFragmentManager.findFragmentByTag("f0") as? Step1Fragment
+            val step2Fragment = supportFragmentManager.findFragmentByTag("f1") as? Step2Fragment
+            val step3Fragment = supportFragmentManager.findFragmentByTag("f2") as? Step3Fragment
+            val step4Fragment = supportFragmentManager.findFragmentByTag("f3") as? Step4Fragment
+
+            val userName = step1Fragment?.getUserName() ?: username
+            val salary = step1Fragment?.getSalary() ?: 0.0
+            val financialGoal = step2Fragment?.getSelectedGoal() ?: ""
+            val spendingHabit = step3Fragment?.getSelectedHabit() ?: ""
+            val budgetAlerts = step4Fragment?.getBudgetAlerts() ?: true
+            val dailyReminder = step4Fragment?.getDailyReminder() ?: true
+            val badgeNotifications = step4Fragment?.getBadgeNotifications() ?: false
+            val darkMode = step4Fragment?.getDarkMode() ?: false
+
+            // Update user in database
+            val user = userRepository.getUserById(userId)
             if (user != null) {
-                repository.updateUser(user.copy(tutorialCompleted = true))
+                userRepository.updateUserWithTutorialOptions(
+                    userId = userId,
+                    tutorialCompleted = true,
+                    financialGoal = financialGoal,
+                    spendingHabit = spendingHabit,
+                    budgetAlerts = budgetAlerts,
+                    dailyReminder = dailyReminder,
+                    badgeNotifications = badgeNotifications,
+                    darkMode = darkMode
+                )
+
+                // Save the monthly salary to budget table
+                if (salary > 0) {
+                    val calendar = Calendar.getInstance()
+                    val month = calendar.get(Calendar.MONTH)
+                    val year = calendar.get(Calendar.YEAR)
+                    budgetRepository.saveBudget(salary, month, year)
+                }
             }
+
+            // Navigate to MainActivity
             startActivity(Intent(this@TutorialActivity, MainActivity::class.java).apply {
-                putExtra("USERNAME", user?.username ?: "")
+                putExtra("USERNAME", if (userName.isNotEmpty()) userName else username)
             })
             finish()
         }

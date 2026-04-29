@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 class Step2Fragment : Fragment() {
 
     private var selectedGoalId = R.id.cardSaveMoney
+    private var selectedGoal = "Save more money"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +32,13 @@ class Step2Fragment : Fragment() {
         cards.forEach { card ->
             card.setOnClickListener {
                 updateSelection(card.id)
+                selectedGoal = when (card.id) {
+                    R.id.cardSaveMoney -> "Save more money"
+                    R.id.cardTrackSpending -> "Track my spending"
+                    R.id.cardReachGoal -> "Reach a financial goal"
+                    R.id.cardHousehold -> "Manage household budget"
+                    else -> "Save more money"
+                }
             }
         }
     }
@@ -51,4 +59,6 @@ class Step2Fragment : Fragment() {
             }
         }
     }
+
+    fun getSelectedGoal(): String = selectedGoal
 }

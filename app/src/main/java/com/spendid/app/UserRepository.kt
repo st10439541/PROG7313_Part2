@@ -168,4 +168,33 @@ class UserRepository(private val dbHelper: DatabaseHelper) {
             arrayOf(userId.toString())
         )
     }
+
+    fun updateUserWithTutorialOptions(
+        userId: Int,
+        tutorialCompleted: Boolean,
+        financialGoal: String,
+        spendingHabit: String,
+        budgetAlerts: Boolean,
+        dailyReminder: Boolean,
+        badgeNotifications: Boolean,
+        darkMode: Boolean
+    ) {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(DatabaseHelper.COL_TUTORIAL_COMPLETED, if (tutorialCompleted) 1 else 0)
+            put(DatabaseHelper.COL_FINANCIAL_GOAL, financialGoal)
+            put(DatabaseHelper.COL_SPENDING_HABIT, spendingHabit)
+            put(DatabaseHelper.COL_BUDGET_ALERTS, if (budgetAlerts) 1 else 0)
+            put(DatabaseHelper.COL_DAILY_REMINDER, if (dailyReminder) 1 else 0)
+            put(DatabaseHelper.COL_BADGE_NOTIFICATIONS, if (badgeNotifications) 1 else 0)
+            put(DatabaseHelper.COL_DARK_MODE, if (darkMode) 1 else 0)
+        }
+
+        db.update(
+            DatabaseHelper.TABLE_USERS,
+            values,
+            "${DatabaseHelper.COL_ID} = ?",
+            arrayOf(userId.toString())
+        )
+    }
 }

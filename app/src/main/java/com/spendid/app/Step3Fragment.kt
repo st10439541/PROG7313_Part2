@@ -11,6 +11,7 @@ import androidx.cardview.widget.CardView
 class Step3Fragment : Fragment() {
 
     private var selectedHabitId = R.id.cardInControl
+    private var selectedHabit = "Mostly in control"
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,6 +32,13 @@ class Step3Fragment : Fragment() {
         cards.forEach { card ->
             card.setOnClickListener {
                 updateSelection(card.id)
+                selectedHabit = when (card.id) {
+                    R.id.cardDisciplined -> "Very disciplined"
+                    R.id.cardInControl -> "Mostly in control"
+                    R.id.cardNeedsImprovement -> "Needs improvement"
+                    R.id.cardOverspend -> "Often overspend"
+                    else -> "Mostly in control"
+                }
             }
         }
     }
@@ -51,4 +59,6 @@ class Step3Fragment : Fragment() {
             }
         }
     }
+
+    fun getSelectedHabit(): String = selectedHabit
 }
