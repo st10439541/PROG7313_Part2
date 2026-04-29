@@ -37,7 +37,7 @@ class CategoryRepository(private val dbHelper: DatabaseHelper) {
 
         if (cursor.moveToFirst()) {
             cursor.close()
-            return -1 // Category already exists
+            return -1 // already exists
         }
         cursor.close()
 

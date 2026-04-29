@@ -232,7 +232,7 @@
                 android:scaleType="centerCrop"
                 android:visibility="gone" />
 
-            <!-- FIXED: Removed drawableStart="@drawable/ic_camera" – using text only (you can add emoji later) -->
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnAttachReceipt"
                 style="@style/Widget.Spendid.Button.Outline"

@@ -147,7 +147,7 @@ class AddExpenseActivity : AppCompatActivity() {
             photoFile
         )
         cameraImageUri = uri
-        cameraLauncher.launch(uri)  // ← non-null Uri, no more type mismatch
+        cameraLauncher.launch(uri)  // ← non-null Uri
     }
 
     // ──────────────────────────────────────────────────────────────────────────
@@ -268,7 +268,7 @@ class AddExpenseActivity : AppCompatActivity() {
                 selectedCategoryId,
                 selectedDate,
                 selectedTime,
-                selectedImageUri?.toString()   // ← now actually passes the URI
+                selectedImageUri?.toString()  //passes the URI
             )
 
             if (result > 0) {

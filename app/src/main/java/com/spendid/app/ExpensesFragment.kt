@@ -19,7 +19,7 @@ class ExpensesFragment : Fragment() {
         CategoryRepository(DatabaseHelper(requireContext()))
     }
 
-    // FIX: Changed from List -> MutableList so items can be removed
+    // MutableList so items can be removed
     private var allExpenses: MutableList<Expense> = mutableListOf()
 
     private lateinit var adapter: ExpenseAdapter
@@ -39,10 +39,10 @@ class ExpensesFragment : Fragment() {
         recycler = view.findViewById(R.id.recyclerExpenses)
         recycler.layoutManager = LinearLayoutManager(requireContext())
 
-        // FIX: Convert list to MutableList
+        //Convert list to MutableList
         allExpenses = expenseRepository.getAllExpenses().toMutableList()
 
-        // FIX: Pass delete lambda to adapter
+        // Pass delete lambda to adapter
         adapter = ExpenseAdapter(allExpenses, categoryRepository) { expense, position ->
 
             // Delete from database

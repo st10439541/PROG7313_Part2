@@ -68,7 +68,7 @@ class ExpenseRepository(private val dbHelper: DatabaseHelper) {
         return list
     }
 
-    // FIX: Added delete functionality for removing expenses
+    //delete functionality for removing expenses
     fun deleteExpense(id: Int): Int {
         val db = dbHelper.writableDatabase
 

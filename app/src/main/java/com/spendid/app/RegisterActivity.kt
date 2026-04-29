@@ -113,7 +113,7 @@ class RegisterActivity : AppCompatActivity() {
 
                     val result = repository.insertUser(username, password)
 
-                    // 🔥 IMPORTANT DEBUG
+                    // IMPORTANT DEBUG
                     println("INSERT RESULT = $result")
 
                     result != -1L
@@ -130,7 +130,7 @@ class RegisterActivity : AppCompatActivity() {
                 val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
                 startActivity(intent)
 
-                finish() // 👈 THIS IS ENOUGH
+                finish() // THIS IS ENOUGH
                 finish()
             }else {
                 usernameLayout.error = "Registration failed (check logs)"
@@ -199,7 +199,7 @@ class RegisterActivity : AppCompatActivity() {
     private fun calculateStrength(password: String): Int {
         var score = 0
 
-        if (password.length >= 1) score++        // weak baseline (DON'T skip this)
+        if (password.length >= 1) score++        // weak baseline (ABSOLUTELY DO NOT SKIP THIS)
         if (password.length >= 6) score++
         if (password.length >= 10) score++
         if (password.any { it.isDigit() }) score++

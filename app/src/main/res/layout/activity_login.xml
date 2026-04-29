@@ -96,9 +96,7 @@
         <!-- ══ END HEADER ══ -->
 
 
-        <!-- ══════════════════════════════════════
-             FORM CARD
-             ══════════════════════════════════════ -->
+        <!-- ══ FORM CARD ══-->
         <androidx.cardview.widget.CardView
             android:id="@+id/formCard"
             android:layout_width="0dp"

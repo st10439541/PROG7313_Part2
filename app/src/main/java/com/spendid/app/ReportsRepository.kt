@@ -72,7 +72,7 @@ class ReportsRepository(private val dbHelper: DatabaseHelper) {
         return results
     }
 
-    // Get total spending for a date range
+    // Get the total spending for a date range
     fun getTotalSpending(startDate: String, endDate: String): Double {
         val db = dbHelper.readableDatabase
 

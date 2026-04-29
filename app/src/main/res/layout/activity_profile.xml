@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
-                        <!-- Monthly Salary Row (WORKING) -->
+                        <!-- Monthly Salary Row -->
                         <LinearLayout
                             android:id="@+id/salaryRow"
                             android:layout_width="match_parent"
@@ -164,7 +164,7 @@
                             android:layout_height="1dp"
                             android:background="@color/linen" />
 
-                        <!-- Edit Profile Row (WORKING) -->
+                        <!-- Edit Profile Row -->
                         <LinearLayout
                             android:id="@+id/btnEditProfile"
                             android:layout_width="match_parent"
