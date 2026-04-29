@@ -19,14 +19,21 @@
             </intent-filter>
         </activity>
 
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
         <!-- Auth -->
         <activity android:name=".LoginActivity" android:exported="false" />
         <activity android:name=".RegisterActivity" android:exported="false" />
         <activity android:name=".TutorialActivity" android:exported="false" />
 
-        <!-- Main Dashboards (add these) -->
-        <activity android:name=".DashboardActivity" android:exported="false" />
-        <activity android:name=".ExpenseDashboardActivity" android:exported="false" />
 
         <!-- Your existing container activities -->
         <activity android:name=".MainActivity" android:exported="false" />

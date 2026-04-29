@@ -1,20 +1,26 @@
 package com.spendid.app
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ExpenseAdapter(private val list: List<Expense>, private val categoryRepository: CategoryRepository) :
-    RecyclerView.Adapter<ExpenseAdapter.ViewHolder>() {
+class ExpenseAdapter(
+    private val list: MutableList<Expense>,
+    private val categoryRepository: CategoryRepository,
+    private val onDelete: (Expense, Int) -> Unit
+) : RecyclerView.Adapter<ExpenseAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-
         val title: TextView = view.findViewById(R.id.expenseTitle)
         val meta: TextView = view.findViewById(R.id.expenseMeta)
         val amount: TextView = view.findViewById(R.id.expenseAmount)
-        val icon: TextView = view.findViewById(R.id.expenseIcon)
+        val dateTime: TextView = view.findViewById(R.id.tvDateTime)
+        val image: ImageView = view.findViewById(R.id.imgExpense)
+        val deleteButton: ImageView = view.findViewById(R.id.deleteButton)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -24,18 +30,29 @@ class ExpenseAdapter(private val list: List<Expense>, private val categoryReposi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val item = list[position]
 
-        // Get category name and icon from categoryId
         val category = categoryRepository.getCategoryById(item.categoryId)
         val categoryName = category?.name ?: "Unknown"
         val categoryIcon = category?.icon ?: "📦"
 
-        holder.icon.text = categoryIcon
         holder.title.text = item.description
-        holder.meta.text = "$categoryName • ${item.date}"
+        holder.meta.text = "$categoryIcon $categoryName • ${item.date}"
         holder.amount.text = "R ${String.format("%.2f", item.amount)}"
+        holder.dateTime.text = "${item.date} | ${item.time}"
+
+        // Receipt image
+        if (!item.imageUri.isNullOrEmpty()) {
+            holder.image.setImageURI(Uri.parse(item.imageUri))
+            holder.image.visibility = View.VISIBLE
+        } else {
+            holder.image.setImageResource(android.R.drawable.ic_menu_gallery)
+            holder.image.visibility = View.VISIBLE
+        }
+
+        holder.deleteButton.setOnClickListener {
+            onDelete(item, holder.adapterPosition)
+        }
     }
 
     override fun getItemCount(): Int = list.size

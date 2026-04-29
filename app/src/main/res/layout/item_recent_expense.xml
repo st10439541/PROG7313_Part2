@@ -1,56 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="12dp"
-    android:gravity="center_vertical">
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
 
-    <!-- ICON -->
-    <TextView
-        android:id="@+id/expenseIcon"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="@drawable/bg_icon_circle_green"
-        android:gravity="center"
-        android:text="🍔"
-        android:textSize="18sp" />
-
-    <!-- TITLE + META -->
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/expenseTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lunch"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="@android:color/black" />
+        <!-- Receipt Image -->
+        <ImageView
+            android:id="@+id/imgExpense"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            android:layout_marginEnd="12dp"
+            android:scaleType="centerCrop"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:contentDescription="Receipt" />
 
-        <TextView
-            android:id="@+id/expenseMeta"
-            android:layout_width="wrap_content"
+        <!-- Text Info -->
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Food • Mar 10"
-            android:textSize="11sp"
-            android:textColor="@android:color/darker_gray" />
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <!-- Title + Amount Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/expenseTitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="Groceries"
+                    android:textColor="@color/bark"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/expenseAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato_bold"
+                    android:text="R 120.00"
+                    android:textColor="@color/forest"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- Category -->
+            <TextView
+                android:id="@+id/expenseMeta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:text="Food • Apr 27"
+                android:textColor="@color/brown_light"
+                android:textSize="11sp" />
+
+            <!-- Date + Time -->
+            <TextView
+                android:id="@+id/tvDateTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato_regular"
+                android:text="2026-04-27 | 08:30"
+                android:textColor="@color/hint_text"
+                android:textSize="11sp" />
+
+        </LinearLayout>
+
+        <!-- Delete -->
+        <ImageView
+            android:id="@+id/deleteButton"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:src="@android:drawable/ic_menu_delete"
+            android:contentDescription="Delete expense" />
 
     </LinearLayout>
 
-    <!-- AMOUNT -->
-    <TextView
-        android:id="@+id/expenseAmount"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="R 120"
-        android:textStyle="bold"
-        android:textSize="14sp"
-        android:textColor="@android:color/black" />
-
-</LinearLayout>
+</com.google.android.material.card.MaterialCardView>
